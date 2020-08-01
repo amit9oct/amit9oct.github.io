@@ -13,9 +13,29 @@ layout: page
     <a class="navbar-brand">Interesting Math Problems</a>
     <form class="form-inline">
       <input class="form-control mr-sm-2" type="search" placeholder="Search blog posts.." aria-label="Search" id="search-input">
-      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   </nav>
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search blog posts.." aria-label="Search" id="search-input">
+    </form>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">My ML Notebooks <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Math Problems</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Pricing</a>
+        </li>
+      </ul>
+    </div>
+  </nav>  
   <ul id="results-container"></ul>
    
   {% for post in posts %}
