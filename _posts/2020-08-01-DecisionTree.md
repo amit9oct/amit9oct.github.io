@@ -6,7 +6,7 @@ tags: [ML, Machine Learning, Decision Tree]
 comments: true
 ---
 
-*Note: This page is generated from the following Jupyter Notebook: [DecisionTree](https://github.com/amit9oct/Tom-Mitchell-Notebook/blob/master/Chapter3/DecisionTree.ipynb)
+\*Note: This page is generated from the following Jupyter Notebook: [DecisionTree](https://github.com/amit9oct/Tom-Mitchell-Notebook/blob/master/Chapter3/DecisionTree.ipynb)
 
 # Decision Tree Learning
 
