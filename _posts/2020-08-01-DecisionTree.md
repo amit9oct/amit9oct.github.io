@@ -2,11 +2,11 @@
 layout: post
 title: Decision Trees
 subtitle: How does a decision tree makes decision ?
+gh-repo: amit9oct/Tom-Mitchell-Notebook/
+gh-badge: [star, fork, follow]
 tags: [ML, Machine Learning, Decision Tree]
 comments: true
 ---
-
-\*Note: This page is generated from the following Jupyter Notebook: [DecisionTree](https://github.com/amit9oct/Tom-Mitchell-Notebook/blob/master/Chapter3/DecisionTree.ipynb)
 
 # Decision Tree Learning
 
@@ -631,4 +631,7 @@ tree
 
 ![svg](/assets/img/2020-08-01-DecisionTree/output_14_1.svg)
 
+### References and Reading
 
+- This page is generated from the following Jupyter Notebook: [DecisionTree](https://github.com/amit9oct/Tom-Mitchell-Notebook/blob/master/Chapter3/DecisionTree.ipynb) . 
+- This blog is heavily influenced by Tom Mitchell's [Machine Learning book](https://www.cs.ubbcluj.ro/~gabis/ml/ml-books/McGrawHill%20-%20Machine%20Learning%20-Tom%20Mitchell.pdf)
