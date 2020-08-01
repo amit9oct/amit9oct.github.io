@@ -8,35 +8,23 @@ layout: page
 
 <div class="posts-list">
  	<!-- HTML elements for search -->
-   <nav class="navbar navbar-light bg-light justify-content-between">
-    <a class="navbar-brand">My ML Notebooks</a>
-    <a class="navbar-brand">Interesting Math Problems</a>
+  <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">My ML Notebooks <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Math Problems</a>
+      </li>
+    </ul>    
     <form class="form-inline">
       <input class="form-control mr-sm-2" type="search" placeholder="Search blog posts.." aria-label="Search" id="search-input">
     </form>
   </nav>
   <nav class="navbar navbar-light" style="background-color: #e3f2fd;">
-    <form class="form-inline">
-      <input class="form-control mr-sm-2" type="search" placeholder="Search blog posts.." aria-label="Search" id="search-input">
-    </form>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-      <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarText">
-      <ul class="navbar-nav mr-auto">
-        <li class="nav-item active">
-          <a class="nav-link" href="#">My ML Notebooks <span class="sr-only">(current)</span></a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Math Problems</a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" href="#">Pricing</a>
-        </li>
-      </ul>
-    </div>
-  </nav>  
-  <ul id="results-container"></ul>
+    <ul class="navbar-nav mr-auto" id="results-container">
+    </ul>
+  </nav>
    
   {% for post in posts %}
   <article class="post-preview">
