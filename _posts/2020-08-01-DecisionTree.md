@@ -45,7 +45,7 @@ ID3(Examples, Target_attribute, Attributes):
        - **Let** $Examples_{v_i}$ be the subset of *Examples* that have value $v_i$ for $A$
        - **If** $Examples_{v_i}$ is empty:
            - <b>Then</b> Below this new branch add a new leaf node with label = most common value of <i>Target_attribute in Examples</i>
-           - <b>Else</b> Below this new branch add a subtree ID3($Examples_{v_i}$, *Target_attribute*, Attribute - {A})
+           - <b>Else</b> Below this new branch add a subtree $$ID3(Examples_{v_i}, Target\_attribute, Attribute - {A})$$
 ---
 **\*Best**: Best attribute is the one with the highest information gain.
 
@@ -533,8 +533,11 @@ We need to change the Entropy which is meant for discrete values only. The Infor
 One possible way is to use standard deviation or variance to tell which attribute to split on. The one which maximizes the gain in weighted average of variance most is taken.
 At any given node $S$ we compute the variance as 
 $$WVar(S, A) = \sum_{v \in A} (\frac{|S_v|}{|S|}(\sum_{<x_c, t_c> \in S_v} (t_c - \frac{\sum_{<x_c, t_c> \in S_v}x_c}{|S_v|})^2))$$
+<br>
 If we write $Var(S_v) = \frac{1}{|S_v|} (\sum_{<x_c, t_c> \in S_v} (t_c - \frac{\sum_{<x_c, t_c> \in S_v}x_c}{|S_v|})^2)$
+<br>
 So $WVar(S, A)$ becomes
+<br>
 $$WVar(S, A) = \sum_{v \in A} \frac{|S_v|^2}{|S|}Var(S_v)$$
 
 
