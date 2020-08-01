@@ -46,6 +46,7 @@ ID3(Examples, Target_attribute, Attributes):
        - **If** $Examples_{v_i}$ is empty:
            - <b>Then</b> Below this new branch add a new leaf node with label = most common value of <i>Target_attribute in Examples</i>
            - <b>Else</b> Below this new branch add a subtree $$ID3(Examples_{v_i}, Target\_attribute, Attribute - \{A\})$$
+
 ---
 <b>\*Best</b>: Best attribute is the one with the highest information gain.
 
@@ -526,7 +527,7 @@ id3_continuous._model.visualize()
 
 We can extend the idea of ID3 from a discrete target function to a continuous target function (regression).
 
-***What should we use to make the current ID3 algorithm usable for continuous data ?*** (Click on **+** to see the answer)
+***What should we use to make the current ID3 algorithm usable for continuous data ?***
 
 
 We need to change the Entropy which is meant for discrete values only. The Information Gain measure will essentially change for dealing with regression data. 
