@@ -44,8 +44,8 @@ ID3(Examples, Target_attribute, Attributes):
        - Add a new tree branch below *Root*, corresponding to the test $A = v_i$
        - **Let** $Examples_{v_i}$ be the subset of *Examples* that have value $v_i$ for $A$
        - **If** $Examples_{v_i}$ is empty:
-           - **Then** Below this new branch add a new leaf node with label = most common value of *Target_attribute in Examples*
-           - **Else** Below this new branch add a subtree ID3($Examples_{v_i}$, $Target\_attribute$, $Attribute - \{A\}$)
+           - <b>Then</b> Below this new branch add a new leaf node with label = most common value of <i>Target_attribute in Examples</i>
+           - <b>Else</b> Below this new branch add a subtree ID3($Examples_{v_i}$, $Target\_attribute$, $Attribute - \{A\}$)
 ---
 **\*Best**: Best attribute is the one with the highest information gain.
 
