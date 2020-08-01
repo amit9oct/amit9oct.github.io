@@ -290,7 +290,7 @@ class ID3:
         else: # We need to choose the best attribute and then recursively build the tree
             best_attr, entropy_value = self.get_best_attribute(example, list(attribute_set), labels)
             # ID3._printExamples("Best attribute %s %s" % (best_attr, entropy_value), example)
-            root_node.set_label("{{\"Attr\":\"{}\", \"Gain\":\"{}\"}}".format(best_attr, entropy_value))
+            #root_node.set_label("{{\"Attr\":\"{}\", \"Gain\":\"{}\"}}".format(best_attr, entropy_value))
             for value in self.get_distinct_values(best_attr, example, labels):
                 new_examples = self.eval_attr_condition(best_attr, example, value)
                 new_labels = [labels[int(str(idx))] for idx in new_examples["_index_"]]
