@@ -8,8 +8,16 @@ layout: page
 
 <div class="posts-list">
  	<!-- HTML elements for search -->
-   <input type="text" id="search-input" placeholder="Search blog posts..">
-   <ul id="results-container"></ul> 
+   <nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">My ML Notebooks</a>
+    <a class="navbar-brand">Interesting Math Problems</a>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search blog posts.." aria-label="Search" id="search-input">
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </nav>
+  <ul id="results-container"></ul>
+   
   {% for post in posts %}
   <article class="post-preview">
     <a href="{{ post.url | absolute_url }}">
