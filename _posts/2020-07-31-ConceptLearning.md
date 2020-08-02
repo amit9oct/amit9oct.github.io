@@ -62,6 +62,7 @@ $$(\forall x \in X) \;[(h_k(x) = 1) \rightarrow (h_j(x) = 1) ]$$</p>
         - **Then** do nothing
         - **Else** replace $a_i$ in $h$ by next more general constraint that is satisfied by $x$
 3. Output hypothesis $h$
+
 ---
 
 ### 1.3.1 Problems with Find-S
