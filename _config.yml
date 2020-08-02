@@ -14,7 +14,7 @@ author: Amitayush Thakur
 navbar-links:
   About Me: "aboutme"
   Resources:
-    - Learn markdown: "https://www.markdowntutorial.com/"
+    - Machine Learning by Tom Mitchell: "https://www.cs.ubbcluj.ro/~gabis/ml/ml-books/McGrawHill%20-%20Machine%20Learning%20-Tom%20Mitchell.pdf"
   Author's home: "https://amit9oct.github.io"
 
 # --- Logo --- #
