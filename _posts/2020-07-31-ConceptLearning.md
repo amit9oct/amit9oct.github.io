@@ -36,7 +36,7 @@ Consider the following example:
 
 The **inductive learning hypothesis** states that any hypothesis found to approximate the target function well over a sufficiently large set of training examples will also approximate the target function well over other unobserved examples.
 
-In *Example 1.2.1* the number of different hypothesis which can be generated without using *\?* or *$ \phi $* are $3.2.2.2.2.2 = 96$, adding the two symbol gives us $5.4.4.4.4.4 = 5120$ syntactically distinct hypothesis. But if any hypothesis consisting of one or more $\phi$ symbols represents empty set of instance; that is, it classifies every instance as negative. Therefore, the number of semantically distinct hypotheses is only $1 + (4.3.3.3.3.3) = 973$. *EnjoySport* example is a very simple learning task, with a relatively small, finite hypothesis space.
+In *Example 1.2.1* the number of different hypothesis which can be generated without using *?* or *$ \phi $* are $3.2.2.2.2.2 = 96$, adding the two symbol gives us $5.4.4.4.4.4 = 5120$ syntactically distinct hypothesis. But if any hypothesis consisting of one or more $\phi$ symbols represents empty set of instance; that is, it classifies every instance as negative. Therefore, the number of semantically distinct hypotheses is only $1 + (4.3.3.3.3.3) = 973$. *EnjoySport* example is a very simple learning task, with a relatively small, finite hypothesis space.
 
 Consider two hypothesis,<br>
 $$h_1 = \;<Sunny, ?, ?, Strong, ?, ?> $$
@@ -176,6 +176,7 @@ $$V_{HD} = \{h \in H| \;Consistent(h, D)\}$$
 2. For each training example $<x, c(x)>\;\in\;D$
     - remove from *VersionSpace* any hypothesis *h* which for which $h(x) \ne c(x)$
 3. Output the list of hypothesis in *VersionSpace*
+
 ---
 
 Clearly this is a very simple way of searching through *Version Space*. Here the *Version Space* is represented by using a *list*. But there ways to represent *Version Space* in a more compact way.
