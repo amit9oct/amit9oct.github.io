@@ -4,6 +4,7 @@ title: Decision Trees
 subtitle: How does a decision tree makes decision ?
 gh-repo: amit9oct/Tom-Mitchell-Notebook/
 gh-badge: [star, fork, follow]
+share-img: /assets/img/2020-08-01-DecisionTree/output_14_1.svg
 tags: [ML, Machine Learning, Decision Tree]
 comments: true
 ---
