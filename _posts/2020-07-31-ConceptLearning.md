@@ -92,9 +92,9 @@ class Hypothesis:
     
     def satisfies(self, attr_idx, x_value):
         attr, value = self.hypothesis_dict[attr_idx]
-        if attr == "\\phi":
+        if value == "\\phi":
             return False
-        elif attr == "?":
+        elif value == "?":
             return True
         else:
             return value == x_value
