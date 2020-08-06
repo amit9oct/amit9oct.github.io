@@ -635,5 +635,5 @@ tree
 
 ### References and Reading
 
-- This page is generated from the following Jupyter Notebook: [DecisionTree](https://github.com/amit9oct/Tom-Mitchell-Notebook/blob/master/Chapter3/DecisionTree.ipynb) . 
+- This page is generated from the following Jupyter Notebook: [DecisionTree.ipynb](https://github.com/amit9oct/Tom-Mitchell-Notebook/blob/master/Chapter3/DecisionTree.ipynb) . 
 - This blog is heavily influenced by Tom Mitchell's [Machine Learning book](https://www.cs.ubbcluj.ro/~gabis/ml/ml-books/McGrawHill%20-%20Machine%20Learning%20-Tom%20Mitchell.pdf)
