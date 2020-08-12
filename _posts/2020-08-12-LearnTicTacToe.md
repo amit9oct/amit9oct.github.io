@@ -2,6 +2,8 @@
 layout: post
 title: Computer LEARNS Tic-Tac-Toe
 subtitle: How to make your computer LEARN Tic-Tac-Toe
+share-img: /assets/img/2020-08-12-LearnTicTacToe/thumnailpic.jpeg
+thumbnail-img: /assets/img/2020-08-12-LearnTicTacToe/thumnailpic.jpeg
 gh-repo: amit9oct/Tom-Mitchell-Notebook/
 gh-badge: [star, fork, follow]
 tags: [ML, Machine Learning, AI, Minimax, Alpha Beta Pruning, Neural Networks, ANN, Decision Trees, Regression, Linear Regression, Logistic Regression]
