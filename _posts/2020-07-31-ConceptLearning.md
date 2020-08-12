@@ -6,6 +6,7 @@ gh-repo: amit9oct/Tom-Mitchell-Notebook/
 gh-badge: [star, fork, follow]
 tags: [ML, Machine Learning, Concept Learning]
 comments: true
+comment_issue_id: 1
 ---
 
 # Concept Learning As Search
