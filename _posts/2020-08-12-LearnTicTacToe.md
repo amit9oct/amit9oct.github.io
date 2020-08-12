@@ -20,7 +20,7 @@ A fairly simple game which we have been playing since childhood. In case you are
 
 The simplicity of the game makes it very suitable for pedagogical purposes, that is one of the reason why we find Tic-Tac-Toe so much in Artificial Intelligence literature.
 
-We will discuss about making the computer learn to play Tic-Tac-Toe. We will start with very basic deterministic way of solving Tic-Tac-Toe and slowly move to making the computer LEARN to play Tic-Tac-Toe. We will also examine some of our own strategies while playing this game and can the computer learn these startegies. At times we must have come across a strategy, that putting a X or an O at the center always leads to draw and hence a safe move is to simply put an X or O at the center. 
+We will discuss about making the computer learn to play Tic-Tac-Toe. We will start with very basic deterministic way of solving Tic-Tac-Toe and slowly move to making the computer LEARN to play Tic-Tac-Toe. We will also examine some of our own strategies while playing this game and can the computer learn these strategies. At times we must have come across a strategy, that putting a X or an O at the center always leads to draw and hence a safe move is to simply put an X or O at the center. 
 
 ## 2. ROTE Learning way (or the NOT so learning way)
 
@@ -2030,12 +2030,12 @@ o_full_ann_class_model = MLPClassifier(random_state=1, max_iter=1000, activation
 
 ```python
 x_full_ann_class_acc = x_full_ann_class_model.score(x_training_data_full, x_class_full)
-o_full_ann_class_acc = o_full_ann_class_model.score(o_training_data_full, x_class_full)
+o_full_ann_class_acc = o_full_ann_class_model.score(o_training_data_full, o_class_full)
 print("Accuracy for X = {}, Accuracy for O = {}"
       .format(x_full_ann_class_acc, o_full_ann_class_acc))
 ```
 
-    Accuracy for X = 1.0, Accuracy for O = 0.38159576410443674
+    Accuracy for X = 1.0, Accuracy for O = 1.0
     
 
 Finally we have something, the accuracy is 1 now!! Neural Networks learns to play Tic-Tac-Toe. We can finally brag about it.
