@@ -2007,7 +2007,7 @@ print("Accuracy for X = {}, Accuracy for O = {}"
     Accuracy for X = 0.6016067190067556, Accuracy for O = 0.6016067190067556
     
 
-Wow!! the accuracy increased from $23.5\%$ to $60.1\%$ , however, this is not surprising. Converting a regression problem to classification problem allows more room for the algorithm to make mistakes. Logistic Regression creates constraints on the problem making it less complex than Linear Regression where the possible outcome could be anything in $(-\infinity,\infinity)$.
+Wow!! the accuracy increased from $23.5\%$ to $60.1\%$ , however, this is not surprising. Converting a regression problem to classification problem allows more room for the algorithm to make mistakes. Logistic Regression creates constraints on the problem making it less complex than Linear Regression where the possible outcome could be anything in $(-\infty, +\infty)$ .
 
 #### 4.6.2 Decision Tree Classifier
 
