@@ -7,6 +7,7 @@ gh-badge: [star, fork, follow]
 thumbnail-img: /assets/img/2020-08-01-DecisionTree/output_14_1.png 
 share-img: /assets/img/2020-08-01-DecisionTree/output_14_1.png
 tags: [ML, Machine Learning, Decision Tree]
+comment_issue_id: 2
 ---
 
 # Decision Tree Learning
