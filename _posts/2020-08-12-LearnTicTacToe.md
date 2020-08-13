@@ -2066,5 +2066,5 @@ Finally we have something, the accuracy is 1 now!! Neural Networks learns to pla
 
 ## 4.7 The fair way
 
-Till this point we have considered that we have scores corresponding to all states. In true sense this is not really ML, in many we case don't even have such exhaustive training data. Also, we ideally divide the available data between test and train. If you note we didn't do that here. In real world the problems are complex enough and we might not even have any way to compute these scores before hand. 
+Till this point we have considered that we have scores corresponding to all states. In true sense this is not really ML, in many case we don't even have such exhaustive training data. Also, we ideally divide the available data between test and train. If you note we didn't do that here. In real world the problems are complex enough and we might not even have any way to compute these scores before hand. 
 ### \[More Coming Soon .......\]
