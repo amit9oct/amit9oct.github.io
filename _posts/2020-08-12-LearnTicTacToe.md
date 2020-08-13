@@ -12,34 +12,36 @@ comment_issue_id: 1
 
 ## 1. What is Tic Tac Toe ?
 
-A fairly simple game which we have been playing since childhood. In case you are not familiar with the game you can read more about it [here](https://en.wikipedia.org/wiki/Tic-tac-toe) or watch this short video.
+A fairly simple game which most of us have been playing since childhood. In case you are not familiar with the game you can read more about it [here](https://en.wikipedia.org/wiki/Tic-tac-toe) or watch this short video.
 
 
 <iframe width="560" height="315" src="https://www.youtube.com/embed/USEjXNCTvcc" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
 
-The simplicity of the game makes it very suitable for pedagogical purposes, that is one of the reason why we find Tic-Tac-Toe so much in Artificial Intelligence literature.
+The simplicity of the game makes it very suitable for pedagogical purposes, that is one of the reason why we find references to Tic-Tac-Toe in Artificial Intelligence literature.
 
-We will discuss about making the computer learn to play Tic-Tac-Toe. We will start with very basic deterministic way of solving Tic-Tac-Toe and slowly move to making the computer LEARN to play Tic-Tac-Toe. We will also examine some of our own strategies while playing this game and can the computer learn these strategies. At times we must have come across a strategy, that putting a X or an O at the center always leads to draw and hence a safe move is to simply put an X or O at the center. 
+We will discuss about making the computer learn to play Tic-Tac-Toe. We will start with few basic deterministic ways of solving Tic-Tac-Toe and slowly move towards making the computer LEARN playing Tic-Tac-Toe. 
+
+At times we might have come across the strategy of putting X or O at the center, considering it a safe move one can simply put X or O at the center and expect to at least draw the game. We will also examine some of our own strategies like this while playing Tic-Tac-Toe and discuss whether a computer can learn these strategies.
 
 ## 2. ROTE Learning way (or the NOT so learning way)
 
 One unique feature of this game is that it has less number of possible game states. A game state is a description of the positions of X's and O's at a given point in time in the game.
 
-So the initial game state looks like the empty game figure. The next game state look like the figure corresponding to one of the possible game moves made by the first player, say X. Although there are 9 possible moves of which only 3 are distinct if we consider symmetry. All these game states cane be depicted in form of a [game tree](https://en.wikipedia.org/wiki/Game_tree) . Game trees allow us to enumerate all possible scenarios in the game. Take look at the figure below for game tree associated with Tic-Tac-Toe.
+So the initial game state looks like the empty game figure. The next game state look like the figure corresponding to one of the possible game moves made by the first player, say X. Although there are 9 possible moves of which only 3 are distinct if we consider symmetry. All these game states can be depicted in form of a [game tree](https://en.wikipedia.org/wiki/Game_tree) . Game trees allow us to enumerate all possible scenarios in the game. Take look at the figure below for game tree associated with Tic-Tac-Toe.
 
 ![Gamge States](https://upload.wikimedia.org/wikipedia/commons/thumb/d/da/Tic-tac-toe-game-tree.svg/545px-Tic-tac-toe-game-tree.svg.png)
 
-There are some states which are losing and some other states which are winning. You might have guessed the meaning, but let us define it more rigorously. A state is called winning for *X* if either of the following holds true:
-1. Player *X* has won the game. (the obvious win)
-2. There exists **NO** such path in the tree (sub-tree) starting from the given state which will **NOT** land player <i>X</i> in an obvious win state as described in 1. (Or we can say every path will land player *X* into an obvious win state)
+There are some states which are **losing** and some other states which are **winning**. You might have guessed the meaning of winning and losing here, but let's define it more rigorously. A state is called winning for $X$ if either of the following holds true:
+1. Player $X$ has won the game. (the **obvious wining state**)
+2. There exists **NO** such path in the tree (sub-tree) starting from the given state which will **NOT** land player $X$ in an **obvious winning state** as described in 1. (Or we can say every path will land player $X$ into an obvious winning state)
 
-In an analogous way we can define winning states for O's. Similarly we can also defining a losing state. (try defining losing state precisely) 
+In an analogous way we can define winning states for O's. Similarly we can also defining a losing state. Now you can try defining losing state precisely by yourself.
 
 ### 2.1 The ROTE Learning approach
 
-As the name suggest this is very straight forward. Make a tree and figure out all winning states and losing states for a given player. If it is a winning state give a high score to the player, if it is a losing state give a penalizing score and if it is neither then give a zero.
+As the name suggest this is a very straight forward way of solving this problem. Make a tree and figure out all winning states and losing states for a given player. If it is a winning state give a high score to the player, if it is a losing state give a penalizing score and if it is neither (draw) then give a zero.
 
 ---
 ***Algorithm 2.1.1***
@@ -55,13 +57,13 @@ GetStateScore(**state**, **player**):
 
 ---
 
-The actual difficulty in the above algorithm is figuring out if a state is winning or not. One possible way, is to use the game tree itself and ensure that all path in all subtrees starting from the given state, ends up making the given player win. This is again relatively straight forward if you are familiar with [graph theory](https://en.wikipedia.org/wiki/Graph_theory) and [BFS](https://en.wikipedia.org/wiki/Breadth-first_search) or [DFS](https://en.wikipedia.org/wiki/Depth-first_search).
+The actual difficulty in the above algorithm is figuring out if a state is winning or not. One possible way is to use the game tree itself and ensure that all paths in all subtrees starting from the given state ends up making the given player win. This is again relatively straight forward if you are familiar with [graph theory](https://en.wikipedia.org/wiki/Graph_theory) and understand [BFS](https://en.wikipedia.org/wiki/Breadth-first_search) or [DFS](https://en.wikipedia.org/wiki/Depth-first_search).
 
 ## 3. The Minimax way
 
-If you have heard of the minimax algorithm then this is probably one of the most widely used ways to solve this type of problems. The core idea of this class of algorithm is to make sure that you always consider your opponents best possible moves before making yours. As the name suggests, Min-Max, find the minimum of the maximum possible score of your opponent or in other words minimize your damage in worst case.
+If you have heard of the [minimax algorithm](https://en.wikipedia.org/wiki/Minimax), then this is probably one of the most widely used algorithms to solve this type of problem. The core idea behind this class of algorithms is to make sure that you always consider your opponents best possible move before making yours. As the name suggests, Min-Max, we find the minimum of the maximum possible score of your opponent or in other words minimize your damage in worst case.
 
-There is another version of the same algorithm which is maximizing the minimum gain. In case of Tic-Tac-Toe we try and do exactly the same thing. Maximize the minimum gain. This allows us to consider the other player's optimal moves.
+There is another version of the same algorithm which is maximizing the minimum gain. In case of Tic-Tac-Toe we try to maximize the minimum gain. This allows us to consider the opponent's optimal moves.
 
 ---
 
@@ -82,7 +84,7 @@ GetMaxScore(**currentState**, **currentPlayer**):
 
 ---
 
-The algorithm 3.1.1 works because it considers the negative scores for the other player, hence effectively maximizing the minimum gains.
+The algorithm 3.1.1 works because it considers the negative scores for the other player, effectively maximizing the minimum gains.
 Below we have a working example in python for the above algorithm.
 
 
@@ -192,13 +194,13 @@ print(player_x.get_score(1, 0, state2)) # move 1,0 for 'X' will eventually lead 
 
 ## 4. The Learning Way
 
-Now that we have seen various deterministic ways of solving the problem, we can try something which is more like learning Tic-Tac-Toe. The methods discussed previously will in worst case generate all possible states and assign scores to each state. Even though applying machine learning to a problem which can solved without much complexity deterministically doesn't add much advantage. But it can a be good problem for learning ML and for other pedagogical purposes.
+Now that we have seen various deterministic ways of solving the problem, we can try something which is more like **learning** Tic-Tac-Toe. The methods discussed previously will in worst case generate all possible states and assign scores to each state. Even though applying machine learning to a problem which can be easily solved by deterministic methods doesn't add much value, it can still be considered a good problem for learning ML.
 
 ### 4.1 The Data
 
-Before starting to solve any problem the ML way we need data. We can generate the data using the deterministic algorithms discussed previously. Now at this point you can call it unfair because we are consuming the data previously available from playing Tic-Tac-Toe with the best player. Towards the end of this section we will discuss a Q-Learning approach to solving this problem and there we won't use any previous data.
+Before starting to solve any problem the ML way, we need data. We can generate the data using the deterministic algorithms discussed previously. Now at this point you might want to call it unfair, because we are consuming the data which is previously available from deterministic best player. However, towards the end of this section, we will discuss a Q-Learning approach for solving this problem and there we won't use any previous data.
 
-So lets take a look at the data. Here, we have represented the game state using variables $X_{i} \; \forall \; 0 \le i \le 8$ ; $O_{i} \; \forall \; 0 \le i \le 8$; $IsO$; and $score$. $X_{i}$ tells whether there is symbol *'X'* at position $i$, similarly $O_{i}$ tells whether there is symbol *'O'* at position $i$. In case both $O_i$ and $X_i$ are zero then position $i$ is empty. $IsO$ tells if $O$ made the last move.
+So lets take a look at the data, we have represented the game state using variables $X_{i} \; \forall \; 0 \le i \le 8$ ; $O_{i} \; \forall \; 0 \le i \le 8$; $IsO$; and $score$. $X_{i}$ tells whether there is symbol '$X$' at position $i$, similarly $O_{i}$ tells whether there is symbol '$O$' at position $i$. In case both $O_i$ and $X_i$ are zero then position $i$ is empty. $IsO$ tells if $O$ made the last move.
 
 |...|...|...|
 |---|---|---|
@@ -216,6 +218,7 @@ data = pd.read_csv("ticTacToeScore.csv")
 data
 ```
 
+You can find the actual data here [ticTacToeScore.csv](/assets/img/2020-08-12-LearnTicTacToe/ticTacToeScore.csv)
 
 
 
@@ -1749,7 +1752,6 @@ data.iloc[[11]]
 </div>
 
 
-
 The $12^{th}$ data point represents the following Tic-Tac-Toe state:
 
 |...|...|...|
@@ -1758,7 +1760,7 @@ The $12^{th}$ data point represents the following Tic-Tac-Toe state:
 | _ | _ | _ |
 | _ | O | X |
 
-$IsO$ is 1 indicating that last turn was with $O$ and $score$ is -100 indicating that $O$ will definitely lose given $X$ plays optimally. We can actually see that's true because in the next move 'X' can actually mark at position $2$,
+$IsO$ is 1 indicating that last turn was with $O$. Also, $score$ is -100 indicating that $O$ will definitely lose, given $X$ plays optimally. We can actually see that's true because in the next move 'X' can actually mark at position $2$,
 
 |...|...|...|
 |---|---|---|
@@ -1782,27 +1784,41 @@ After that $X$ makes a move at position $0$, trapping $O$ and making it lose the
 | _ | _ | O |
 | _ | O | X |
 
-Clearly our dataset is good and it represents the actual game states and their corresponding scores accurately.
+Clearly our dataset is good, it represents the actual game states and their corresponding scores accurately.
 
 In all there are $5478$ distinct possible valid states in a Tic-Tac-Toe. A trivial analysis can tell us that maximum number of cases will be capped by $3^9 = 19683$ because every position possible can take three different values ($X$, $O$ or $\_$ ), but this clearly is not the best estimate as out of 19683 only 5478 are possible. This also tells us why a representation consisting of more columns, having $blank_{i}$ similar to $X_{i}$s and $O_{i}$s to represent $\_$, is not a good idea. It will increase the space in which the learning algorithm has to search for solution. Our current representation has 19 binary columns and hence the search space is constrained by $2^{19} = 524288$ size. But if we have more columns, considering $blank_{i}$ as binary columns, then the total search space size increases to $2^{28} = 268435456$. There are some other possible representations like having 9 columns, one for each position, each of which can contain three values ($0$ for $X$, $1$ for $O$ and $2$ for $\_$ ). It is not hard to see that this representation is bad because it is attaching a weighted preference to each of possible outcomes ($X$, $O$ or $\_$ ). It will make it hard for some of the simple algorithms like **logistic regression** to extract the meaning from this representation, even for complex models such as **ANN**s it may take more time to converge. So a good representation is one which allows us to represent data in a simple form and at the same time not increasing the search space drastically. If you would have noticed the number of rows in our training data is $10954 = 2 * (5478 - 1)$. This is because there are two possible values of $IsO$ for every state and we are not considering empty state at all so $2 * (5478 - 1)$.
 
+
 ### 4.2 Preparing the Data
 
-First we extract out the training data for 'X' and 'O' separately.
+First we extract out the training data for 'X' and 'O' separately. This is simply a filter based on the column $IsO$.
+
 
 
 ```python
+#x_training_data_full has training examples in which 'X' made the last move
 x_training_data_full = (data[(data.IsO == 0)]).drop(columns=["IsO", "score"])
+#o_training_data_full has training examples in which 'O' made the last move
 o_training_data_full = (data[(data.IsO == 1)]).drop(columns=["IsO", "score"])
+#Below lines make sure that older index is dropped from the new data frame formed
 x_training_data_full.reset_index(drop=True, inplace=True)
 o_training_data_full.reset_index(drop=True, inplace=True)
+#This simply stores score separately
 x_score_full = [score for score in data[(data.IsO == 0)]["score"]]
 o_score_full = [score for score in data[(data.IsO == 1)]["score"]]
 ```
 
 ### 4.3 Linear Regression
-Clearly we have some features and a score which we want to predict so how about trying Linear Regression first.
 
+Clearly we have some features and a score which we want to predict so how about trying Linear Regression first.
+In this case, **Linear Regression** tries to learn function which is of form:
+
+$$\sum_{i = 0}^{8}(w_{x_i} X_i) + \sum_{i = 0}^{8}(w_{o_i} O_i) + C$$    ... (Eq 4.3.1)
+
+The core idea of linear regression is to search for functions like *Eq 4.3.1* which closely approximates the original score function as used by deterministic best player.
+You can read more about [Linear Regression](https://en.wikipedia.org/wiki/Linear_regression).
+
+We are using [**sklearn**](https://scikit-learn.org/), it is a popular ML library in python.
 
 ```python
 from sklearn.linear_model import LinearRegression
@@ -1830,7 +1846,7 @@ print("Accuracy for X = {}, Accuracy for O = {}"
 
 We get a very bad training accuracy of just $23.5\%$ . But if you notice the function for $X$ and $O$ have coefficients which are opposite in sign. It means that the move which makes $X$ win is bad for $O$. But is this data good enough for a linear model to work ? Can we do better with the linear model ?
 
-Let's try and reduce the dimension. One may also want to do scaling, but it is not of much use as we only have binary columns.
+Let's try and reduce the dimension using [PCA](https://en.wikipedia.org/wiki/Principal_component_analysis). One may also want to do [scaling](https://en.wikipedia.org/wiki/Feature_scaling), but it is not of much use as we only have binary columns.
 
 
 ```python
@@ -1858,11 +1874,14 @@ plt.show()
 ![png](/assets/img/2020-08-12-LearnTicTacToe/output_19_0.png)
 
 
-The plot pretty much explains why Linear Regression performs so bad. But still is there a way to improve accuracy ? Even on such a complex decision boundary $23.5\%$ seems too bad. We will address this question later.
+The plot pretty much explains why Linear Regression performs so bad, clearly the data is not linear. 
+Is there a way to improve accuracy ? 
+Even on such a complex decision boundary $23.5\%$ seems too bad. 
+We will address this question later.
 
 ### 4.4 Decision Trees Regression
 
-As we already saw the linear regression performed badly, so we will consider more complex models. So let us consider decision tree regression first.
+As we already saw the linear regression performed badly, so we will consider more complex models. So let us consider decision tree regression first. You read more about [decision tree on one my blogs](https://amit9oct.github.io/2020-08-01-DecisionTree/).
 
 
 ```python
@@ -1886,7 +1905,7 @@ graph
 
 
 
-As you can see even with 15 nodes it is still checking the $X4$ value which is the center position. So one of our childhood assumptions that putting a mark at the center takes a game towards draw is not without a reason. But of course this particular decision tree doesn't have a good accuracy. In fact the accuracy improves with the number of nodes in the decision tree and after a certain number of nodes it saturates to 1 when the decision tree overfits the training data.
+As you can see even with 15 nodes it is still checking the $X4$ value which is the center position. So one of our childhood assumptions about making a move at center position takes the  game towards draw is not without a reason. However, this particular decision tree with just 15 node doesn't have a good accuracy. In fact, the accuracy improves with the number of nodes in the decision tree and after a certain number of nodes it saturates to $1.0$, when the decision tree over-fits the training data.
 
 
 ```python
@@ -1911,11 +1930,12 @@ plt.show()
 ![png](/assets/img/2020-08-12-LearnTicTacToe/output_24_0.png)
 
 
-So as you can see the accuracy touches $1.0$ in both the plots around the same time. Around $1600$ nodes we have accuracy as $1.0$.One must also note that tic-tac-toe just has $765$ essentially different positions (no rotations or symmetry considered), which also hints that one will at least need that many nodes in the tree.
+So as you can see the accuracy touches $1.0$, in both overlapping plots, around $1600$ nodes. We may also note that tic-tac-toe has only $765$ essentially different positions (with rotations and symmetry considered), which also hints that one will at least need $765$ nodes in the tree.
 
 ### 4.5 ANN Regression
 
-Well how about apply neural networks to this problem. Since neural networks can solve complex problems with ease, so it should be a simple thing for **ANN Regression**.
+How about applying [neural networks](https://en.wikipedia.org/wiki/Artificial_neural_network) to this problem ? 
+Since, neural networks can solve complex problems like [face recognition](https://en.wikipedia.org/wiki/Facial_recognition_system), [handwriting recognition](https://en.wikipedia.org/wiki/Handwriting_recognition) etc. with ease, so it appears to be reasonably simple thing for **ANN Regression**.
 
 
 ```python
@@ -1933,21 +1953,24 @@ x_full_ann_reg_model.score(x_training_data_full, x_score_full)
 
 Never expected **ANN** to be this bad, just $77.3\%$ ?
 
-Usually ANN outperforms any other model is it a consequence of **[No free lunch theorem](https://en.wikipedia.org/wiki/No_free_lunch_theorem)** that the decision tree outperforms **ANN**. 
+Usually ANN outperforms any other model.
+This might make us wonder if it is a consequence of **[No free lunch theorem](https://en.wikipedia.org/wiki/No_free_lunch_theorem)** that the decision tree outperforms **ANN**. 
 
 ### 4.6 Fill the missing gap
 
-What if model this as a classification problem rather than regression problem. The possible scores are anyways limited to three values $0$, $100$ and $-100$. All of them simply corresponds to three different scenarios. Sounds like an interesting idea. So let's convert our data to make it a classification problem.
+What if model this as a classification problem rather than regression problem. The possible scores are anyways limited to three values $0$, $100$ and $-100$. All of them simply corresponds to three different scenarios or classes. Sounds like an interesting idea. So let's convert our data to make it a classification problem.
 
 
 ```python
+#This simply coverts -100 to 0; 0 to 1 and 100 to 2
+#Basically making 0,1 and 2 classes from scores 
 x_class_full = [int(score/100 + 1) for score in x_score_full]
 o_class_full = [int(score/100 + 1) for score in o_score_full]
 ```
 
 #### 4.6.1 Logistic Regression
 
-Let's replace the linear regression model with logistic regression and see what do we gain.
+Let's replace the linear regression model with [logistic regression](https://en.wikipedia.org/wiki/Logistic_regression) and see what do we gain.
 
 
 ```python
@@ -1984,11 +2007,11 @@ print("Accuracy for X = {}, Accuracy for O = {}"
     Accuracy for X = 0.6016067190067556, Accuracy for O = 0.6016067190067556
     
 
-Wow!! The accuracy increased from $23.5\%$ to $60.1\%$. But this is not surprising. Converting a regression problem to classification problem allows more room for the algorithm to make mistakes. Regression creates artificial constraints on the problem making it more complex than needed.
+Wow!! the accuracy increased from $23.5\%$ to $60.1\%$ , however, this is not surprising. Converting a regression problem to classification problem allows more room for the algorithm to make mistakes. Logistic Regression creates constraints on the problem making it less complex than Linear Regression where the possible outcome could be anything in $(-\infinity,\infinity)$.
 
 #### 4.6.2 Decision Tree Classifier
 
-Let's see if something improves in case of decision tree classification.
+Let's see if something improves in case of decision tree classification. You read more about [decision tree on one my blogs](https://amit9oct.github.io/2020-08-01-DecisionTree/).
 
 
 ```python
@@ -2014,11 +2037,11 @@ plt.show()
 ![png](/assets/img/2020-08-12-LearnTicTacToe/output_35_0.png)
 
 
-It seems like there is no effect as such. This kind of makes sense. Decision trees usually tend to overfit the training data itself and hence we cannot see any significant improvements here.
+It seems like this doesn't affect the results much. It kind of makes sense, decision trees usually tend to over-fit the training data itself and hence we cannot see any significant improvements here.
 
 #### 4.6.3 Classification using Neural Networks
 
-Let's see if converting it into neural network classification problem improves accuracy.
+Let's see if converting it into [neural networks](https://en.wikipedia.org/wiki/Artificial_neural_network) classification problem improves accuracy.
 
 
 
@@ -2043,6 +2066,5 @@ Finally we have something, the accuracy is 1 now!! Neural Networks learns to pla
 
 ## 4.7 The fair way
 
-Till this point we have considered that we have scores corresponding to all states and we have used all of it as training data. In true sense this is not really ML. So ideally do a divide between test and train. Also, in real world the problems are complex enough and we might not even have any way to compute these scores.
-
-### \[More Coming Soon\]
+Till this point we have considered that we have scores corresponding to all states. In true sense this is not really ML, in many case don't even have such exhaustive training data. Also, we ideally divide the available data between test and train. If you note we didn't do that here. In real world the problems are complex enough and we might not even have any way to compute these scores before hand. 
+### \[More Coming Soon .......\]
