@@ -5,6 +5,7 @@ subtitle: Machine Learning as a Search Problem
 gh-repo: amit9oct/Tom-Mitchell-Notebook/
 gh-badge: [star, fork, follow]
 tags: [ML, Machine Learning, Concept Learning]
+comment_issue_id: 3
 ---
 
 # Concept Learning As Search
