@@ -150,7 +150,11 @@ function loadPDF(relUrl)
         var viewport = page.getViewport( {scale: 2} );
         var pdfStatus = document.getElementById("pdf-load-status");
         var pdfDiv = document.getElementById("pdf-canvas");
+        var pdfTextDiv = document.getElementById("pdf-text");
         var pos = getPos(pdfDiv);
+        pdfTextDiv.style.left = pos.style.left;
+        pdfTextDiv.style.top = pos.style.top;
+        pdfTextDiv.style.position = "absolute";
     
         //We'll create a canvas for each page to draw it on
         var canvas = document.createElement("canvas");
@@ -189,21 +193,21 @@ function loadPDF(relUrl)
                 textLayer.style.width = canvas.offsetWidth + 'px';
                 textLayer.style.position = 'absolute';
                 //Add it to the web page
-                pdfDiv.appendChild(textLayer);
+                pdfTextDiv.appendChild(textLayer);
 
                 pdfStatus.innerHTML = `Loaded ${currPage} out of ${numPages} pages ...`;
-            });
-    
-        //Move to next page
-        currPage++;
-        if ( thePDF !== null && currPage <= numPages )
-        {
-            thePDF.getPage(currPage).then(handlePages);
-        }
-        else
-        {
-            pdfStatus.innerHTML = "";
-        }
+
+                //Move to next page
+                currPage++;
+                if ( thePDF !== null && currPage <= numPages )
+                {
+                    thePDF.getPage(currPage).then(handlePages);
+                }
+                else
+                {
+                    pdfStatus.innerHTML = "";
+                }  
+            });    
     }
     
     //This is where you start
