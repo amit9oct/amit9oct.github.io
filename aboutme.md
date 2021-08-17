@@ -4,6 +4,10 @@ title: About me
 subtitle: [Coming Soon]
 ---
 
-My name is Amitayush Thakur.
+\documentclass{article}
+\begin{document}
 
+My name is Amitayush Thakur.
 What else do you need?
+
+\end{document}
