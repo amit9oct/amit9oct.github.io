@@ -4,10 +4,6 @@ layout: base
 
 {% include header.html type="page" %}
 
-<div class="container-md" role="main" >
-  <iframe srcdoc="<p>Loading PDF ...</p>" id="pdf-frame">
-  </iframe>
-  <iframe id="pdf-load" 
-  srcdoc="<p>Shouldn't show</p>" 
-  style="display: none;"></iframe>
+<div class="container-md" role="main" id="pdf-canvas">
+    <p id="pdf-load-status">Loading Pages ...</p>
 </div>

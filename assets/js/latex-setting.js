@@ -110,18 +110,77 @@ function loadGooglePdfViewer(relUrl, maxRetryCount)
     get_post_ajax(successCallback, emptyCallback, progress_update_callback(), googleUrl);
 }
 
-var el = document.getElementById('pdf-load'); 
+var el = document.getElementById('pdf-canvas'); 
 if (el) 
 { 
     var x = '/assets/resume/PublicResume.pdf';
-    el.addEventListener('onload', 
-    function()
-    {
-        loadGooglePdfViewer(x, 5);
-    });
-    loadGooglePdfViewer(x, 5);    
+    loadPDF(x);    
 }
 
 // import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
 // customElements.define("latex-js", LaTeXJSComponent);
 
+function loadPDF(relUrl)
+{
+    var url = `https://amit9oct.github.io${relUrl}`;
+
+    // Loaded via <script> tag, create shortcut to access PDF.js exports.
+    var pdfjsLib = window['pdfjs-dist/build/pdf'];
+    
+    // The workerSrc property shall be specified.
+    pdfjsLib.GlobalWorkerOptions.workerSrc = '/assets/js/pdf.worker.js';
+    
+    var currPage = 1; //Pages are 1-based not 0-based
+    var numPages = 0;
+    var thePDF = null;
+
+    function handlePages(page)
+    {
+        //This gives us the page's dimensions at full scale
+        var viewport = page.getViewport( {scale: 1.5} );
+    
+        //We'll create a canvas for each page to draw it on
+        var canvas = document.createElement("canvas");
+        canvas.id = `pdf-canvas${page}`;
+        canvas.style.display = "block";
+        var context = canvas.getContext('2d');
+    
+        canvas.height = viewport.height;
+        canvas.width = viewport.width;
+    
+        //Draw it on the canvas
+        page.render({canvasContext: context, viewport: viewport});
+    
+        //Add it to the web page
+        document.getElementById("pdf-canvas").appendChild(canvas);
+    
+        var line = document.createElement("hr");
+        document.getElementById("pdf-canvas").appendChild(line);
+
+        document.getElementById("pdf-load-status").innerHTML = `Loaded ${currPage} out of ${numPages} pages ...`;
+    
+        //Move to next page
+        currPage++;
+        if ( thePDF !== null && currPage <= numPages )
+        {
+            thePDF.getPage(currPage).then(handlePages);
+        }
+        else
+        {
+            document.getElementById("pdf-load-status").innerHTML = "";
+        }
+    }
+    
+    //This is where you start
+    pdfjsLib.getDocument(url).promise.then(function(pdf) 
+    {
+        //Set PDFJS global object (so we can easily access in our page functions
+        thePDF = pdf;
+
+        //How many pages it has
+        numPages = pdf.numPages;
+
+        //Start with first page
+        pdf.getPage(currPage).then(handlePages);
+    });    
+}
