@@ -163,20 +163,20 @@ function loadPDF(relUrl)
                 // Assign CSS to the textLayer element
                 var textLayer = document.createElement("div");
                 textLayer.id = `textLayer${page}`;
-                textLayer.style.left = canvas.offsetLeft + 'px';
-                textLayer.style.top = canvas.offsetTop + 'px';
-                textLayer.style.height = canvas.offsetHeight + 'px';
-                textLayer.style.width = canvas.offsetWidth + 'px';
-                //Add it to the web page
-                document.getElementById("pdf-canvas").appendChild(textLayer);                
-        
                 // Pass the data to the method for rendering of text over the pdf canvas.
                 pdfjsLib.renderTextLayer({
                     textContent: textContent,
                     container: textLayer,
                     viewport: viewport,
                     textDivs: []
-                });
+                });                
+                textLayer.style.left = canvas.offsetLeft + 'px';
+                textLayer.style.top = canvas.offsetTop + 'px';
+                textLayer.style.height = canvas.offsetHeight + 'px';
+                textLayer.style.width = canvas.offsetWidth + 'px';
+                textLayer.style.position = 'absolute';
+                //Add it to the web page
+                document.getElementById("pdf-canvas").appendChild(textLayer);
 
                 document.getElementById("pdf-load-status").innerHTML = `Loaded ${currPage} out of ${numPages} pages ...`;
             });
