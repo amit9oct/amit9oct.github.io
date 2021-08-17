@@ -117,6 +117,16 @@ if (el)
     loadPDF(x);    
 }
 
+function getPos(ele) 
+{
+    for (var lx=0, ly=0;
+        ele != null;
+         lx += ele.offsetLeft, 
+         ly += ele.offsetTop, 
+         ele = ele.offsetParent);
+    return {offsetLeft: lx, offsetTop: ly};
+}
+
 // import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
 // customElements.define("latex-js", LaTeXJSComponent);
 
@@ -137,11 +147,14 @@ function loadPDF(relUrl)
     function handlePages(page)
     {
         //This gives us the page's dimensions at full scale
-        var viewport = page.getViewport( {scale: 1.5} );
+        var viewport = page.getViewport( {scale: 2} );
+        var pdfStatus = document.getElementById("pdf-load-status");
+        var pdfDiv = document.getElementById("pdf-canvas");
+        var pos = getPos(pdfDiv);
     
         //We'll create a canvas for each page to draw it on
         var canvas = document.createElement("canvas");
-        canvas.id = `pdf-canvas${page}`;
+        canvas.id = `pdf-canvas${currPage}`;
         canvas.style.display = "block";
         var context = canvas.getContext('2d');
     
@@ -157,12 +170,12 @@ function loadPDF(relUrl)
             }).then(function(textContent) 
             {
                 //Add it to the web page
-                document.getElementById("pdf-canvas").appendChild(canvas);
+                pdfDiv.appendChild(canvas);
                 var line = document.createElement("hr");
-                document.getElementById("pdf-canvas").appendChild(line);                
+                pdfDiv.appendChild(line);                
                 // Assign CSS to the textLayer element
                 var textLayer = document.createElement("div");
-                textLayer.id = `textLayer${page}`;
+                textLayer.id = `textLayer${currPage}`;
                 // Pass the data to the method for rendering of text over the pdf canvas.
                 pdfjsLib.renderTextLayer({
                     textContent: textContent,
@@ -170,15 +183,15 @@ function loadPDF(relUrl)
                     viewport: viewport,
                     textDivs: []
                 });                
-                textLayer.style.left = canvas.offsetLeft + 'px';
-                textLayer.style.top = canvas.offsetTop + 'px';
+                textLayer.style.left = `${(pos.offsetLeft + canvas.offsetLeft)}px`;
+                textLayer.style.top = `${(pos.offsetTop + canvas.offsetTop)}px`;
                 textLayer.style.height = canvas.offsetHeight + 'px';
                 textLayer.style.width = canvas.offsetWidth + 'px';
                 textLayer.style.position = 'absolute';
                 //Add it to the web page
-                document.getElementById("pdf-canvas").appendChild(textLayer);
+                pdfDiv.appendChild(textLayer);
 
-                document.getElementById("pdf-load-status").innerHTML = `Loaded ${currPage} out of ${numPages} pages ...`;
+                pdfStatus.innerHTML = `Loaded ${currPage} out of ${numPages} pages ...`;
             });
     
         //Move to next page
@@ -189,7 +202,7 @@ function loadPDF(relUrl)
         }
         else
         {
-            document.getElementById("pdf-load-status").innerHTML = "";
+            pdfStatus.innerHTML = "";
         }
     }
     
