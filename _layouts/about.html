@@ -4,4 +4,9 @@ layout: base
 
 {% include header.html type="page" %}
 
-<object width="900" height="900" style="position:relative; left: 25%;" data="https://docs.google.com/gview?embedded=true&amp;url=https://amit9oct.github.io/assets/resume/PublicResume.pdf"></object>
+<div class="container-md" role="main" >
+  <iframe srcdoc="<p>Loading PDF ...</p>" id="pdf-frame">
+  </iframe>
+  <iframe srcdoc="<p>Shouldn't show</p>" style="display: none;" onload="loadGooglePdfViewer('/assets/resume/PublicResume.pdf')">
+  </iframe>
+</div>
