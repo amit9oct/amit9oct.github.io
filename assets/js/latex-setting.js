@@ -47,6 +47,12 @@ function setSrcDoc(data)
     ele.style.cursor = 'hand';        
 }
 
+function checkIfLoaded()
+{
+    var ele = document.getElementById("pdf-frame");
+    return ele.srcdoc !== "<p>Loading PDF ...</p>";
+}
+
 function progress_update_callback()
 {
     var cnt = 0;
@@ -80,6 +86,10 @@ function get_post_ajax(onSuccessCallback, onEmptyCallback, progressCallback, url
 
 function loadGooglePdfViewer(relUrl, maxRetryCount)
 {
+    if(checkIfLoaded())
+    {
+        return;
+    }
     var assetUrl = `https://amit9oct.github.io${relUrl}`;
     var googleUrl = `https://docs.google.com/gview?embedded=true&url=${assetUrl}`;
     var successCallback = function(response)
@@ -103,12 +113,13 @@ function loadGooglePdfViewer(relUrl, maxRetryCount)
 var el = document.getElementById('pdf-load'); 
 if (el) 
 { 
-    var x = el.innerHTML;
+    var x = '/assets/resume/PublicResume.pdf';
     el.addEventListener('onload', 
     function()
     {
         loadGooglePdfViewer(x, 5);
     });
+    loadGooglePdfViewer(x, 5);    
 }
 
 // import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
