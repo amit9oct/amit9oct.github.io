@@ -78,7 +78,7 @@ function get_post_ajax(onSuccessCallback, onEmptyCallback, progressCallback, url
     xhttp.send();
 }
 
-function loadGooglePdfViewer(relUrl, maxRetryCount=5)
+function loadGooglePdfViewer(relUrl, maxRetryCount)
 {
     var assetUrl = `https://amit9oct.github.io${relUrl}`;
     var googleUrl = `https://docs.google.com/gview?embedded=true&url=${assetUrl}`;
@@ -98,6 +98,17 @@ function loadGooglePdfViewer(relUrl, maxRetryCount=5)
         }
     };
     get_post_ajax(successCallback, emptyCallback, progress_update_callback(), googleUrl);
+}
+
+var el = document.getElementById('pdf-load'); 
+if (el) 
+{ 
+    var x = el.innerHTML;
+    el.addEventListener('onload', 
+    function()
+    {
+        loadGooglePdfViewer(x, 5);
+    });
 }
 
 // import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
