@@ -152,8 +152,8 @@ function loadPDF(relUrl)
         var pdfDiv = document.getElementById("pdf-canvas");
         var pdfTextDiv = document.getElementById("pdf-text");
         var pos = getPos(pdfDiv);
-        pdfTextDiv.style.left = pos.style.left;
-        pdfTextDiv.style.top = pos.style.top;
+        pdfTextDiv.style.left = pos.style.offsetLeft + 'px';
+        pdfTextDiv.style.top = pos.style.offsetTop + 'px';
         pdfTextDiv.style.position = "absolute";
     
         //We'll create a canvas for each page to draw it on
