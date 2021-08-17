@@ -7,6 +7,9 @@ layout: base
 <div class="container-md" role="main" >
   <iframe srcdoc="<p>Loading PDF ...</p>" id="pdf-frame">
   </iframe>
-  <iframe srcdoc="<p>Shouldn't show</p>" style="display: none;" onload="loadGooglePdfViewer('/assets/resume/PublicResume.pdf')">
+  <iframe id="pdf-load" 
+  srcdoc="<p>Shouldn't show</p>" 
+  style="display: none;"
+  onload="loadGooglePdfViewer('/assets/resume/PublicResume.pdf')">
   </iframe>
 </div>

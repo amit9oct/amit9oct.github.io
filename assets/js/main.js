@@ -24,7 +24,7 @@ var BeautifulJekyllJS = {
     });
 
     // show the big header image
-    BeautifulJekyllJS.initImgs();
+    BeautifulJekyllJS.initImgs();    
   },
 
   initImgs : function() {
