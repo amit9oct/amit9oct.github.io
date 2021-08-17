@@ -220,7 +220,7 @@ var pdfName = document.getElementById('pdf-name');
 if (pdfName) 
 { 
     var relUrl = pdfName.value;
-    var fullUrl = `http://amit9oct.github.io${relUrl}`;
+    var fullUrl = `https://amit9oct.github.io${relUrl}`;
     var pdfCanvas = document.getElementById('pdf-canvas');
     var embedding = 
     `
