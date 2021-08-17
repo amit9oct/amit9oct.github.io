@@ -223,7 +223,7 @@ if (pdfName)
     var fullUrl = `http://amit9oct.github.io${relUrl}`;
     var pdfCanvas = document.getElementById('pdf-canvas');
     var embedding = 
-    ```
+    `
     <embed
     src="${fullUrl}#toolbar=1&navpanes=1&scrollbar=0"
     type="application/pdf"
@@ -237,7 +237,7 @@ if (pdfName)
         Click <a href="${fullUrl}">HERE</a> to view the PDF. <br>
       </p>
     </embed>    
-    ```;
+    `;
     pdfCanvas.innerHTML = embedding;    
 }
 
