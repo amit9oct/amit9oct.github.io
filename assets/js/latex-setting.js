@@ -156,13 +156,19 @@ function loadPDF(relUrl)
                 return page.getTextContent();
             }).then(function(textContent) 
             {
+                //Add it to the web page
+                document.getElementById("pdf-canvas").appendChild(canvas);
+                var line = document.createElement("hr");
+                document.getElementById("pdf-canvas").appendChild(line);                
                 // Assign CSS to the textLayer element
-                var textLayer = document.querySelector(".textLayer");
-        
+                var textLayer = document.createElement("div");
+                textLayer.id = `textLayer${page}`;
                 textLayer.style.left = canvas.offsetLeft + 'px';
                 textLayer.style.top = canvas.offsetTop + 'px';
                 textLayer.style.height = canvas.offsetHeight + 'px';
                 textLayer.style.width = canvas.offsetWidth + 'px';
+                //Add it to the web page
+                document.getElementById("pdf-canvas").appendChild(textLayer);                
         
                 // Pass the data to the method for rendering of text over the pdf canvas.
                 pdfjsLib.renderTextLayer({
@@ -171,15 +177,9 @@ function loadPDF(relUrl)
                     viewport: viewport,
                     textDivs: []
                 });
-            });
-    
-        //Add it to the web page
-        document.getElementById("pdf-canvas").appendChild(canvas);
-    
-        var line = document.createElement("hr");
-        document.getElementById("pdf-canvas").appendChild(line);
 
-        document.getElementById("pdf-load-status").innerHTML = `Loaded ${currPage} out of ${numPages} pages ...`;
+                document.getElementById("pdf-load-status").innerHTML = `Loaded ${currPage} out of ${numPages} pages ...`;
+            });
     
         //Move to next page
         currPage++;
