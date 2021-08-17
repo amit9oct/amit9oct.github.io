@@ -8,9 +8,13 @@ layout: base
 <div class="container-md" role="main">
     <div class="row">
       <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" style="display: none;" onload="readTextFile('/assets/tex/resume.tex')">
-        <latex-js baseURL="https://cdn.jsdelivr.net/npm/latex.js/dist/" id="about-me-latex">
-          Loading LaTeX ..
-        </latex-js>        
+        <div>
+          <object data='/assets/resume/resume.pdf' type="application/pdf" width="500" height="678">
+            <iframe src='/assets/resume/resume.pdf' width="500" height="678">
+              <p>This browser does not support PDF!</p>
+            </iframe>
+          </object>
+        </div>        
       </div>
     </div>
   </div>
