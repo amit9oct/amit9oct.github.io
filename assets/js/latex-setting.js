@@ -10,5 +10,24 @@
 // aboutMeDiv.innerHTML = "";
 // aboutMeDiv.appendChild(generator.domFragment());
 
+function readTextFile(file)
+{
+    var rawFile = new XMLHttpRequest();
+    rawFile.open("GET", file, false);
+    rawFile.onreadystatechange = function ()
+    {
+        if(rawFile.readyState === 4)
+        {
+            if(rawFile.status === 200 || rawFile.status == 0)
+            {
+                var allText = rawFile.responseText;
+                var element = document.getElementById("about-me-latex");
+                element.innerHTML = allText;
+            }
+        }
+    }
+}
+
 import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
-customElements.define("latex-js", LaTeXJSComponent)
+customElements.define("latex-js", LaTeXJSComponent);
+

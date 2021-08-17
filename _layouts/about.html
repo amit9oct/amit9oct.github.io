@@ -7,9 +7,9 @@ layout: base
 
 <div class="container-md" role="main">
     <div class="row">
-      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" style="display: none;">
-        <latex-js baseURL="https://cdn.jsdelivr.net/npm/latex.js/dist/">
-          {{content}}
+      <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1" style="display: none;" onload="readTextFile('/assets/tex/resume.tex')">
+        <latex-js baseURL="https://cdn.jsdelivr.net/npm/latex.js/dist/" id="about-me-latex">
+          Loading LaTeX ..
         </latex-js>        
       </div>
     </div>
