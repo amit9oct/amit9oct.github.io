@@ -84,6 +84,17 @@ function get_post_ajax(onSuccessCallback, onEmptyCallback, progressCallback, url
     xhttp.send();
 }
 
+function getPos(ele) 
+{
+    for (var lx=0, ly=0;
+        ele != null;
+         lx += ele.offsetLeft, 
+         ly += ele.offsetTop, 
+         ele = ele.offsetParent);
+    return {offsetLeft: lx, offsetTop: ly};
+}
+
+//not used
 function loadGooglePdfViewer(relUrl, maxRetryCount)
 {
     if(checkIfLoaded())
@@ -110,26 +121,7 @@ function loadGooglePdfViewer(relUrl, maxRetryCount)
     get_post_ajax(successCallback, emptyCallback, progress_update_callback(), googleUrl);
 }
 
-var el = document.getElementById('pdf-canvas'); 
-if (el) 
-{ 
-    var x = '/assets/resume/PublicResume.pdf';
-    loadPDF(x);    
-}
-
-function getPos(ele) 
-{
-    for (var lx=0, ly=0;
-        ele != null;
-         lx += ele.offsetLeft, 
-         ly += ele.offsetTop, 
-         ele = ele.offsetParent);
-    return {offsetLeft: lx, offsetTop: ly};
-}
-
-// import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
-// customElements.define("latex-js", LaTeXJSComponent);
-
+//not used
 function loadPDF(relUrl)
 {
     var url = `https://amit9oct.github.io${relUrl}`;
@@ -223,3 +215,31 @@ function loadPDF(relUrl)
         pdf.getPage(currPage).then(handlePages);
     });    
 }
+
+var pdfName = document.getElementById('pdf-name'); 
+if (pdfName) 
+{ 
+    var relUrl = pdfName.value;
+    var fullUrl = `http://amit9oct.github.io${relUrl}`;
+    var pdfCanvas = document.getElementById('pdf-canvas');
+    var embedding = 
+    ```
+    <embed
+    src="${fullUrl}#toolbar=1&navpanes=1&scrollbar=0"
+    type="application/pdf"
+    frameBorder="5"
+    scrolling="auto"
+    height="900"
+    width="900"
+    >
+      <p>
+        Couldn't embed PDF because plugin is not available on your browser.<br>
+        Click <a href="${fullUrl}">HERE</a> to view the PDF. <br>
+      </p>
+    </embed>    
+    ```;
+    pdfCanvas.innerHTML = embedding;    
+}
+
+// import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
+// customElements.define("latex-js", LaTeXJSComponent);
