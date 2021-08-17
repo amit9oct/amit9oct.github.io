@@ -149,7 +149,29 @@ function loadPDF(relUrl)
         canvas.width = viewport.width;
     
         //Draw it on the canvas
-        page.render({canvasContext: context, viewport: viewport});
+        page.render({canvasContext: context, viewport: viewport})
+            .promise.then(function() 
+            {
+                // Returns a promise, on resolving it will return text contents of the page
+                return page.getTextContent();
+            }).then(function(textContent) 
+            {
+                // Assign CSS to the textLayer element
+                var textLayer = document.querySelector(".textLayer");
+        
+                textLayer.style.left = canvas.offsetLeft + 'px';
+                textLayer.style.top = canvas.offsetTop + 'px';
+                textLayer.style.height = canvas.offsetHeight + 'px';
+                textLayer.style.width = canvas.offsetWidth + 'px';
+        
+                // Pass the data to the method for rendering of text over the pdf canvas.
+                pdfjsLib.renderTextLayer({
+                    textContent: textContent,
+                    container: textLayer,
+                    viewport: viewport,
+                    textDivs: []
+                });
+            });
     
         //Add it to the web page
         document.getElementById("pdf-canvas").appendChild(canvas);
