@@ -8,6 +8,13 @@ layout: base
 <div class="container-md" role="main" id="pdf-canvas">
 </div>
 
+<style>
+  #pdf-canvas
+  {
+    background-image: url(/assets/img/loading.gif) center no-repeat;
+  }
+</style>
+
 <script>
     const maxCount = 5;
     var maxRetryCount = maxCount;
@@ -106,7 +113,6 @@ layout: base
     ele.style.height = '900px';
     ele.style.cursor = 'hand';
     canvas.style.width = '900px';
-    canvas.style.height = '900px';
-    canvas.style.backgroundImage = 'url(/assets/img/loading.gif) center no-repeat';       
+    canvas.style.height = '900px';     
     setTimeout(() => reloadIFrame(ele), 2500);
 </script>
