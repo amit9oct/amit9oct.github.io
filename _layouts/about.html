@@ -5,6 +5,7 @@ layout: base
 {% include header.html type="page" %}
 
 <input type="hidden" id="pdf-name" value="/assets/resume/PublicResume.pdf" />
+<p id="pdf-status">Trying to load PDF ... </p>
 <div class="container-md" role="main" id="pdf-canvas" width="900px" height="900px" style="background-image: url('/assets/img/loading.gif') center center no-repeat;">
 </div>
 
@@ -95,7 +96,8 @@ layout: base
         GetLock(mutex);
         maxRetryCount = 0;
         loaded = true;
-        canvas.style.backgroundImage = 'none';            
+        canvas.style.backgroundImage = 'none';
+        document.getElementById('pdf-status').innerHTML = "";            
         console.log("Finally Loaded");
         ReleaseLock(mutex);
     }
