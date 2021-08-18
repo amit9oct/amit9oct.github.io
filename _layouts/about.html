@@ -4,114 +4,115 @@ layout: base
 
 {% include header.html type="page" %}
 
-<p id="pdf-load-status">Loading Pages ...</p>
 <input type="hidden" id="pdf-name" value="/assets/resume/PublicResume.pdf" />
 <div class="container-md" role="main" id="pdf-canvas">
-  <iframe srcdoc="<p>Loading PDF ...</p>" id="pdf-frame">
-  </iframe>
 </div>
+<style>
+    #pdf-canvas 
+    {
+        background:url(loading.gif) center center no-repeat;
+    }
+</style>
+    
+<script>
+    const maxCount = 5;
+    var maxRetryCount = maxCount;
+    var loaded = false;
+    var mutex = 1;
 
-<script type="text/javascript">
-  //Need inline script to avoid Cross Origin
-  function setSrc(url)
-  {
-      var ele = document.getElementById("pdf-frame");
-      ele.src = url;
-      ele.style.width = '900px';
-      ele.style.height = '900px';
-      ele.style.cursor = 'hand';
-      ele.innerHTML = `Pdf plugin unsupported for this browser click <a href='${url}'>here</a> to see the PDF.`;    
-  }
+    function GetLock(semaphore)
+    {
+        var orig = semaphore;
+        if(orig <= 0)
+        {
+            setTimeout(GetLock, 100);
+        }
+        else
+        {
+            semaphore--;
+            if(Math.abs(orig - semaphore) > 1)
+            {
+                setTimeout(GetLock, 100);
+            }
+            else
+            {
+                return;
+            }
+        }
+    }
 
-  function setSrcDoc(data)
-  {
-      var ele = document.getElementById("pdf-frame");
-      ele.srcdoc = data;
-      ele.style.width = '900px';
-      ele.style.height = '900px';
-      ele.style.cursor = 'hand';        
-  }
+    function ReleaseLock(semaphore)
+    {
+        semaphore = 1;
+    }
+    
+    function checkIfLoaded(iframeEle)
+    {
+        try
+        {
+            if(iframeEle.contentWindow == null)
+            {
+                return false;
+            }
+            var v = iframeEle.contentWindow.document === null;
+            return false;
+        }
+        catch (e)
+        {
+            return true;
+        }
+    }
 
-  function checkIfLoaded()
-  {
-      var ele = document.getElementById("pdf-frame");
-      return ele.srcdoc !== "<p>Loading PDF ...</p>";
-  }
+    function reloadIFrame(ele) 
+    {
+        if(checkIfLoaded(ele))
+        {
+            onLoadIF(ele);
+            return;
+        }
+        var relUrl = document.getElementById("pdf-name").value;
+        var assetUrl = `https://amit9oct.github.io${relUrl}`;
+        var googleUrl = `https://docs.google.com/gview?embedded=true&url=${assetUrl}`;
+        GetLock(mutex);
+        if(maxRetryCount > 0 && !loaded)
+        {
+            ele.src = googleUrl;
+            if(maxRetryCount == maxCount)
+            {
+                canvas.appendChild(ele);
+            }
+            setTimeout(() => reloadIFrame(ele), 3500);
+        }
+        else
+        {
+            ele.style.width = '900px';
+            ele.style.height = '900px';
+            ele.src = assetUrl;
+            ele.innerHTML = `Pdf plugin unsupported for this browser click <a href='${assetUrl}'>here</a> to see the PDF.`;
+            console.log("Couldn't load giving up!");
+            onLoadIF(ele);    
+        }
+        maxRetryCount--;
+        ReleaseLock(mutex);
+    }
 
-  function progress_update_callback()
-  {
-      var cnt = 0;
-      return function(e){
-          setSrcDoc("<p>Loading PDF " + ".".repeat(cnt%53) +"</p>");
-          cnt += 1;
-      };
-  }
-
-  function get_post_ajax(onSuccessCallback, onEmptyCallback, progressCallback, url)
-  {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onprogress = progressCallback;
-      xhttp.addEventListener("load", onEmptyCallback, false);
-      xhttp.addEventListener("error", onEmptyCallback, false);
-      xhttp.addEventListener("abort", onEmptyCallback, false);	  	
-      xhttp.onreadystatechange = function()
-      {
-          if (xhttp.readyState == 4 && xhttp.status == 200)
-          {
-              onSuccessCallback(xhttp.responseText);
-          }
-          else if(xhttp.readyState == 4 && xhttp.status == 204)
-          {
-              onEmptyCallback(xhttp.responseText);
-          }
-      };
-      xhttp.open("GET", url, true);
-      xhttp.send();
-  }
-
-  function getPos(ele) 
-  {
-      for (var lx=0, ly=0;
-          ele != null;
-          lx += ele.offsetLeft, 
-          ly += ele.offsetTop, 
-          ele = ele.offsetParent);
-      return {offsetLeft: lx, offsetTop: ly};
-  }
-
-  //not used
-  function loadGooglePdfViewer(relUrl, maxRetryCount)
-  {
-      if(checkIfLoaded())
-      {
-          return;
-      }
-      var assetUrl = `https://amit9oct.github.io${relUrl}`;
-      var googleUrl = `https://docs.google.com/gview?embedded=true&url=${assetUrl}`;
-      var successCallback = function(response)
-      {
-          setSrcDoc(response);
-      };
-      var emptyCallback = function(response) 
-      {
-          if(maxRetryCount >= 1) 
-          {
-              setTimeout(function() {console.log(maxRetryCount)}, 500);
-              loadGooglePdfViewer(relUrl, maxRetryCount - 1);
-          }
-          else
-          {
-              setSrc(relUrl);
-          }
-      };
-      get_post_ajax(successCallback, emptyCallback, progress_update_callback(), googleUrl);
-  }
-
-  var pdfName = document.getElementById('pdf-name'); 
-  if (pdfName) 
-  { 
-      var relUrl = pdfName.value;
-      var fullUrl = `https://amit9oct.github.io${relUrl}`;
-      loadGooglePdfViewer(relUrl, 5);   
-  }
+    function onLoadIF(ele)
+    {
+        GetLock(mutex);
+        maxRetryCount = 0;
+        loaded = true;
+        canvas.style.backgroundImage = 'none';            
+        console.log("Finally Loaded");
+        ReleaseLock(mutex);
+    }
+    var canvas = document.getElementById("pdf-canvas");
+    var ele = document.createElement("iframe");
+    ele.id = "pdf-frame";
+    ele.style.width = '900px';
+    ele.style.height = '900px';
+    ele.style.cursor = 'hand';
+    canvas.style.width = '900px';
+    canvas.style.height = '900px';
+    canvas.style.backgroundImage = 'url(loading.gif) center no-repeat';        
+    setTimeout(() => reloadIFrame(ele), 3500);
 </script>
