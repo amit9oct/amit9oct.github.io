@@ -28,99 +28,6 @@ function readTextFile(file)
     }
 }
 
-function setSrc(url)
-{
-    var ele = document.getElementById("pdf-frame");
-    ele.src = url;
-    ele.style.width = '900px';
-    ele.style.height = '900px';
-    ele.style.cursor = 'hand';
-    ele.innerHTML = `Pdf plugin unsupported for this browser click <a href='${url}'>here</a> to see the PDF.`;    
-}
-
-function setSrcDoc(data)
-{
-    var ele = document.getElementById("pdf-frame");
-    ele.srcdoc = data;
-    ele.style.width = '900px';
-    ele.style.height = '900px';
-    ele.style.cursor = 'hand';        
-}
-
-function checkIfLoaded()
-{
-    var ele = document.getElementById("pdf-frame");
-    return ele.srcdoc !== "<p>Loading PDF ...</p>";
-}
-
-function progress_update_callback()
-{
-    var cnt = 0;
-    return function(e){
-        setSrcDoc("<p>Loading PDF " + ".".repeat(cnt%53) +"</p>");
-        cnt += 1;
-    };
-}
-
-function get_post_ajax(onSuccessCallback, onEmptyCallback, progressCallback, url)
-{
-    var xhttp = new XMLHttpRequest();
-    xhttp.onprogress = progressCallback;
-    xhttp.addEventListener("load", onEmptyCallback, false);
-    xhttp.addEventListener("error", onEmptyCallback, false);
-    xhttp.addEventListener("abort", onEmptyCallback, false);	  	
-    xhttp.onreadystatechange = function()
-    {
-        if (xhttp.readyState == 4 && xhttp.status == 200)
-        {
-            onSuccessCallback(xhttp.responseText);
-        }
-        else if(xhttp.readyState == 4 && xhttp.status == 204)
-        {
-            onEmptyCallback(xhttp.responseText);
-        }
-    };
-    xhttp.open("GET", url, true);
-    xhttp.send();
-}
-
-function getPos(ele) 
-{
-    for (var lx=0, ly=0;
-        ele != null;
-         lx += ele.offsetLeft, 
-         ly += ele.offsetTop, 
-         ele = ele.offsetParent);
-    return {offsetLeft: lx, offsetTop: ly};
-}
-
-//not used
-function loadGooglePdfViewer(relUrl, maxRetryCount)
-{
-    if(checkIfLoaded())
-    {
-        return;
-    }
-    var assetUrl = `https://amit9oct.github.io${relUrl}`;
-    var googleUrl = `https://docs.google.com/gview?embedded=true&url=${assetUrl}`;
-    var successCallback = function(response)
-    {
-        setSrcDoc(response);
-    };
-    var emptyCallback = function(response) 
-    {
-        if(maxRetryCount >= 1) 
-        {
-            loadGooglePdfViewer(relUrl, maxRetryCount - 1);
-        }
-        else
-        {
-            setSrc(relUrl);
-        }
-    };
-    get_post_ajax(successCallback, emptyCallback, progress_update_callback(), googleUrl);
-}
-
 //not used
 function loadPDF(relUrl)
 {
@@ -214,31 +121,6 @@ function loadPDF(relUrl)
         //Start with first page
         pdf.getPage(currPage).then(handlePages);
     });    
-}
-
-var pdfName = document.getElementById('pdf-name'); 
-if (pdfName) 
-{ 
-    var relUrl = pdfName.value;
-    var fullUrl = `https://amit9oct.github.io${relUrl}`;
-    var pdfCanvas = document.getElementById('pdf-canvas');
-    var embedding = 
-    `
-    <embed
-    src="${fullUrl}#toolbar=1&navpanes=1&scrollbar=0"
-    type="application/pdf"
-    frameBorder="5"
-    scrolling="auto"
-    height="900"
-    width="900"
-    >
-      <p>
-        Couldn't embed PDF because plugin is not available on your browser.<br>
-        Click <a href="${fullUrl}">HERE</a> to view the PDF. <br>
-      </p>
-    </embed>    
-    `;
-    pdfCanvas.innerHTML = embedding;    
 }
 
 // import { LaTeXJSComponent } from "https://cdn.jsdelivr.net/npm/latex.js/dist/latex.mjs"
