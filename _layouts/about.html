@@ -12,6 +12,8 @@ layout: base
   #pdf-canvas
   {
     background-image: url(/assets/img/loading.gif) center no-repeat;
+    width: '900px';
+    height: '900px';
   }
 </style>
 
@@ -113,6 +115,7 @@ layout: base
     ele.style.height = '900px';
     ele.style.cursor = 'hand';
     canvas.style.width = '900px';
-    canvas.style.height = '900px';     
+    canvas.style.height = '900px';
+    setTimeout(function(){}, 1000);         
     setTimeout(() => reloadIFrame(ele), 2500);
 </script>
