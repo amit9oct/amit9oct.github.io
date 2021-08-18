@@ -58,6 +58,21 @@ layout: base
         }
     }
 
+    function getGoogleViewerUrl()
+    {
+      var relUrl = document.getElementById("pdf-name").value;
+      var assetUrl = `https://amit9oct.github.io${relUrl}`;
+      var googleUrl = `https://docs.google.com/gview?embedded=true&url=${assetUrl}`;
+      return googleUrl;
+    }
+
+    function getAssetUrl()
+    {
+      var relUrl = document.getElementById("pdf-name").value;
+      var assetUrl = `https://amit9oct.github.io${relUrl}`;
+      return assetUrl;
+    }
+
     function reloadIFrame(ele) 
     {
         if(checkIfLoaded(ele))
@@ -65,9 +80,8 @@ layout: base
             onLoadIF(ele);
             return;
         }
-        var relUrl = document.getElementById("pdf-name").value;
-        var assetUrl = `https://amit9oct.github.io${relUrl}`;
-        var googleUrl = `https://docs.google.com/gview?embedded=true&url=${assetUrl}`;
+        var assetUrl = getAssetUrl();
+        var googleUrl = getGoogleViewerUrl();
         GetLock(mutex);
         if(maxRetryCount > 0 && !loaded)
         {
@@ -97,7 +111,7 @@ layout: base
         maxRetryCount = 0;
         loaded = true;
         canvas.style.backgroundImage = 'none';
-        document.getElementById('pdf-status').innerHTML = "";            
+        document.getElementById('pdf-status').innerHTML = `If PDF is still not visible, click <a href='${getAssetUrl()}'>here</a> to get it.`;            
         console.log("Finally Loaded");
         ReleaseLock(mutex);
     }
