@@ -5,17 +5,8 @@ layout: base
 {% include header.html type="page" %}
 
 <input type="hidden" id="pdf-name" value="/assets/resume/PublicResume.pdf" />
-<div class="container-md" role="main" id="pdf-canvas">
+<div class="container-md" role="main" id="pdf-canvas" width="900px" height="900px" style="background-image: url('/assets/img/loading.gif') center center no-repeat;">
 </div>
-
-<style>
-  #pdf-canvas
-  {
-    background-image: url(/assets/img/loading.gif) center no-repeat;
-    width: '900px';
-    height: '900px';
-  }
-</style>
 
 <script>
     const maxCount = 5;
@@ -113,9 +104,6 @@ layout: base
     ele.id = "pdf-frame";
     ele.style.width = '900px';
     ele.style.height = '900px';
-    ele.style.cursor = 'hand';
-    canvas.style.width = '900px';
-    canvas.style.height = '900px';
-    setTimeout(function(){}, 1000);         
+    ele.style.cursor = 'hand';      
     setTimeout(() => reloadIFrame(ele), 2500);
 </script>
