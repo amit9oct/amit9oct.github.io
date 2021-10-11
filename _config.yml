@@ -12,9 +12,9 @@ author: Amitayush Thakur
 # --- List of links in the navigation bar --- #
 
 navbar-links:
+  Home: "https://amit9oct.github.io"  
   About Me: "aboutme"
-  Resume: "aboutme"
-  Author's home: "https://amit9oct.github.io"  
+  Résumé: "resume"  
   Resources:
     - Machine Learning by Tom Mitchell: "https://www.cs.ubbcluj.ro/~gabis/ml/ml-books/McGrawHill%20-%20Machine%20Learning%20-Tom%20Mitchell.pdf"
 

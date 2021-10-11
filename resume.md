@@ -1,6 +1,6 @@
 ---
-layout: about
-title: About Me
+layout: resume
+title: Résumé
 subtitle: Curriculum Vitae 
 ---
 
