@@ -3,6 +3,12 @@ layout: base
 ---
 
 {% include header.html type="page" %}
-<article role="main" class="blog-post">
-    {{ content }}
-</article>
+<div class="container-md post-content">
+    <div class="row">
+        <div class="col-xl-8 offset-xl-2 col-lg-10 offset-lg-1">
+            <article role="main" class="blog-post">
+                {{ content }}
+            </article>
+        </div>
+    </div>
+</div>
