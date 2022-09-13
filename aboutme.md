@@ -6,7 +6,7 @@ subtitle: Amitayush Thakur
 
 I'm Amitayush Thakur, a first year Ph.D. at UT Austin. My advisor is [Dr. Swarat Chaudhuri](https://www.cs.utexas.edu/~swarat/).
 
-My research interest is program sythesis from natural language and input-output hints. I am also interested in interpretability of Deep Neural Nets through symbols.
+My research interest is program synthesis from natural language and input-output hints. I am also interested in interpretability of Deep Neural Nets through symbols.
 
 Before joining UT, I worked as Software Engineer 2 at Microsoft in Distributed Systems, and before that as a research intern at Microsoft Research.
 
