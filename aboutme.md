@@ -4,7 +4,7 @@ title: About Me
 subtitle: Amitayush Thakur
 ---
 
-I'm Amitayush Thakur working as Graduate Research Assistant at UT Austin under the supervision of [Dr. Swarat Chaudhuri](https://www.cs.utexas.edu/~swarat/).
+I'm Amitayush Thakur, a first year Ph.D. at UT Austin. My advisor is [Dr. Swarat Chaudhuri](https://www.cs.utexas.edu/~swarat/).
 
 My research interest is program sythesis from natural language and input-output hints. I am also interested in interpretability of Deep Neural Nets through symbols.
 
