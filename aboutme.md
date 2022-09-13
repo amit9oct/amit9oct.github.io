@@ -4,9 +4,13 @@ title: About Me
 subtitle: Amitayush Thakur
 ---
 
-I am Software Engineer 2 at Microsoft, where I work in Azure Backup Team.
+I'm Amitayush Thakur working as Graduate Research Assistant at UT Austin under the supervision of [Dr. Swarat Chaudhuri](https://www.cs.utexas.edu/~swarat/).
 
-I did my Bachelors in Computer Science and Masters in Mathematics at [BITS Pilani](https://www.bits-pilani.ac.in/). I am interested in Machine Learning, Deep Learning, Causal Inference, and Program Synthesis.
+My research interest is program sythesis from natural language and input-output hints. I am also interested in interpretability of Deep Neural Nets through symbols.
+
+Before joining UT, I worked as Software Engineer 2 at Microsoft in Distributed Systems, and before that as a research intern at Microsoft Research.
+
+I did my Bachelors in Computer Science and Masters in Mathematics at [BITS Pilani](https://www.bits-pilani.ac.in/).
 
 Besides that, I also enjoy teaching mathematics to kids in new innovative ways, solving fun mathematics problems, reading about number theory and cryptography.
 
