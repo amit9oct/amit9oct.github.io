@@ -38,13 +38,13 @@ round-avatar: true
 # Uncomment the links you want to show and add your information to each one.
 # If you don't want to show a link to an RSS feed, set rss to "false".
 social-network-links:
-  email: "someone@example.com"
+  email: "amitayusht@gmail.com"
 #  facebook: deanattali
   github: amit9oct
 #  twitter: daattali
-  rss: true
+#  rss: true
 #  reddit: yourname
-#  linkedin: daattali
+  linkedin: in/amitayush-thakur
 #  xing: yourname
 #  stackoverflow: "3943160/daattali"
 #  snapchat: deanat78
@@ -59,7 +59,7 @@ social-network-links:
 #  calendly: yourname
 #  mastodon: instance.url/@username
 #  ORCID: your ORCID ID
-#  google-scholar: your google scholar
+  google-scholar: https://scholar.google.com/citations?hl=en&authuser=2&user=d3XU8EAAAAAJ
 
 # --- General options --- #
 
