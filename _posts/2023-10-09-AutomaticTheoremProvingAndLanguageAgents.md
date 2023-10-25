@@ -9,18 +9,6 @@ gh-badge: [star, fork, follow]
 tags: [ML, Machine Learning, Generative AI, Prompt Engineering, GPTs, GPT-3.5, ChatGPT, GPT-4, AI, Artificial Intelligence, Language Agents, In-Context Learning, Prompting, Theorem Proving, Automatic Theorem Proving, Formal Theorem Proving, Formal Methods, Formal Verification, Coq, Lean]
 comment_issue_id: 4
 ---
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
-
-<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
-
-<script type="text/javascript"
-  src="https://unpkg.com/highlightjs-lean/dist/lean.min.js"></script>
-
-<script type="text/javascript">
-  hljs.initHighlightingOnLoad();
-</script>
-
-<!-- <script>hljs.highlightAll();</script> -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet"
@@ -59,7 +47,7 @@ end
 
 >The figure above shows an example of proof written in [Lean 3](https://en.wikipedia.org/wiki/Lean_(proof_assistant)). This is a proof of the fact that for all natural numbers $x$, if $x$ is even then $x^2$ is also even.
 
-```Coq
+```coq
 (* Natural number definition. As per the definition, 3 = (S (S (S O)) *)
 Inductive N : Set :=  O : N  (*Zero is a natural number*)
 | S : N -> N. (*S is a function that returns the next natural number *)
