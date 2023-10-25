@@ -9,6 +9,18 @@ gh-badge: [star, fork, follow]
 tags: [ML, Machine Learning, Generative AI, Prompt Engineering, GPTs, GPT-3.5, ChatGPT, GPT-4, AI, Artificial Intelligence, Language Agents, In-Context Learning, Prompting, Theorem Proving, Automatic Theorem Proving, Formal Theorem Proving, Formal Methods, Formal Verification, Coq, Lean]
 comment_issue_id: 4
 ---
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/styles/default.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
+
+<script type="text/javascript"
+  src="https://unpkg.com/highlightjs-lean/dist/lean.min.js"></script>
+
+<script type="text/javascript">
+  hljs.initHighlightingOnLoad();
+</script>
+
+<!-- <script>hljs.highlightAll();</script> -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
   <link rel="stylesheet"
@@ -33,7 +45,7 @@ However, writing proofs formally has been a daunting task given the amount of ve
 
 There are multiple languages for theorem proving like [Coq](https://en.wikipedia.org/wiki/Coq), [Lean](https://en.wikipedia.org/wiki/Lean_(proof_assistant)), [Isabelle](https://en.wikipedia.org/wiki/Isabelle_(proof_assistant)), [ACL2](https://en.wikipedia.org/wiki/ACL2), etc.
 
-```lean3
+<pre><code class="language-lean">
 theorem mod_arith_2
 (x : N) : x % 2 = 0 → (x * x) % 2 = 0 :=
 begin
@@ -43,11 +55,11 @@ begin
   rw nat.zero_mul,
   refl,
 end
-```
+</code></pre>
 
 >The figure above shows an example of proof written in [Lean 3](https://en.wikipedia.org/wiki/Lean_(proof_assistant)). This is a proof of the fact that for all natural numbers $x$, if $x$ is even then $x^2$ is also even.
 
-```coq
+```Coq
 (* Natural number definition. As per the definition, 3 = (S (S (S O)) *)
 Inductive N : Set :=  O : N  (*Zero is a natural number*)
 | S : N -> N. (*S is a function that returns the next natural number *)
@@ -150,12 +162,12 @@ The pass@k metric does not evaluate this characteristic as it does not quantify 
 queries or amount of time needed by a proof attempt. 
 
 ![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/miniF2F_pass_k_inference.png)
-> The figure shows, comparison between ReProver and our approach on miniF2F dataset. The figure shows the number of proofs solved by CoPrA and ReProver as a function of the number of inference steps. CoPrA proves a lot more theorems in just 60 inference steps.
+> The figure shows, comparison between ReProver and our approach on miniF2F dataset. It shows the number of proofs solved by CoPrA and ReProver as a function of the number of inference steps. CoPrA proves a lot more theorems in just 60 inference steps.
 
 ![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/compcert_pass_k_inferences.png)
-> The figure shows, comparison between Proverbot9001 and our approach on CompCert dataset. The figure shows the number of proofs solved by CoPrA and Proverbot9001 as a function of the number of inference steps. CoPrA proves a lot more theorems in just 60 inference steps.
+> The figure shows, comparison between Proverbot9001 and our approach on CompCert dataset. It shows the number of proofs solved by CoPrA and Proverbot9001 as a function of the number of inference steps. CoPrA proves a lot more theorems in just 60 inference steps.
 
-The tables below show a detailed comparison of our approach with ReProver and Proverbot9001.
+The tables below shows a detailed comparison of our approach with ReProver and Proverbot9001.
 
 ![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/table1_pass@k_inferences.png)
 
