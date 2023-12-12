@@ -13,7 +13,7 @@ Before joining UT, I worked as Software Engineer 2 at Microsoft in Azure, and be
 
 I did my Bachelors in Computer Science and Masters in Mathematics at [BITS Pilani](https://www.bits-pilani.ac.in/).
 
-Besides that, I also enjoy teaching mathematics to kids in new innovative ways, solving fun mathematics problems, reading about number theory and cryptography.
+Besides that, I also enjoy solving fun mathematics problems, reading about number theory and cryptography.
 
 [Email](mailto:amitayusht@gmail.com)  /  [CV](https://amit9oct.github.io/resume)  /  [Github](https://github.com/amit9oct)
 
