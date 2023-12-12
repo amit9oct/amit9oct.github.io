@@ -120,7 +120,7 @@ combine an LLM’s capability to use tools [(Toolformer by Schick et al. (2023))
 
 We introduce a new approach [in-**Co**ntext **Pr**over **A**gent (COPRA)](https://trishullab.github.io/copra/) which is a Language Agent for ATP. 
 
-![CoPraOverview](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copra_overview.png)
+![CoPraOverview](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-final-overview.png)
 
 >The image above shows how our approach works. We propose a novel theorem proving agent which uses history of previous proof states, failures, repository of useful lemmas, and LLM as part of a verbal policy to predict the next proof action which will lead to simplification of the proof-state. Full details of our approach is described in our paper [A Language-Agent Approach To Formal Theorem-Proving (CoPrA)](https://arxiv.org/abs/2310.04353).
 
@@ -134,7 +134,7 @@ Our approach is based on the following ideas:
 2. Have a map for storing a map of proof states to bad proof actions.
 3. A Prompt Serialization Protocol (PSP) helps in laying out the history of proof actions, proof states, and textual rewards.
 
-![Prompt Serialization Protocol](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copra_prompts.png)
+![Prompt Serialization Protocol](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-prompts.png)
 
 >In the above figure, Seq #1-#4 represent distinct invocations of the LLM. In each invocation, PSP first generates the “agent prompt,” which consists of three parts. The first part (“state”) is simply a serialization of the current proof state. The second (“stack”) incorporates information about previous actions as well as the bad actions for the current proof state. The third (“reward”) encodes the feedback from the environment regarding the success or failure of the last action. The
 response of the LLM to this prompt is then translated into a proof action. This action is then executed on the theorem prover.
@@ -149,21 +149,27 @@ of our research is to discover proofs quickly, with fewer LLM queries and lower 
 The pass@k metric does not evaluate this characteristic as it does not quantify the number of LLM
 queries or amount of time needed by a proof attempt. 
 
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/miniF2F_pass_k_inference.png)
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-miniF2F-pass-k-guidance-steps.png)
 > The figure shows, comparison between ReProver and our approach on miniF2F dataset. It shows the number of proofs solved by CoPrA and ReProver as a function of the number of inference steps. CoPrA proves a lot more theorems in just 60 inference steps.
 
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/compcert_pass_k_inferences.png)
-> The figure shows, comparison between Proverbot9001 and our approach on CompCert dataset. It shows the number of proofs solved by CoPrA and Proverbot9001 as a function of the number of inference steps. CoPrA proves a lot more theorems in just 60 inference steps.
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-compcert-pass-k-guidance-steps-gpt-4-turbo.png)
+> The figure shows, comparison between Proverbot9001 and our approach on CompCert dataset. It shows the number of proofs solved by CoPrA and Proverbot9001 as a function of the number of inference steps. CoPrA proves more theorems in just 60 inference steps.
 
-The tables below shows a detailed comparison of our approach with ReProver and Proverbot9001.
+The tables below shows a detailed comparison of our approach with other approaches.
 
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/table1_pass@k_inferences.png)
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-copra-vs-others-minif2f.png)
+> The table above shows, comparison between CoPrA and other approaches on miniF2F dataset. It is interesting to note that an ensemble of CoPrA with one-shot proves more theorems than most of the other approach.
 
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/table2_wall_clock_times.png)
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/table-miniF2F-detailed-comparison.png)
 
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/table3_ablation.png)
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/table-wallclock-time.png)
 
-From Table 3, we can see that backtracking is important for proving longer theorems. From these tables, it is clear that our approach is not able to find the proofs fast, but also give up proving much faster when the theorem is hard enough.
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-miniF2F-pass-k-seconds.png)
+>From Table 3, and the above figures, we can see that our approach is able to find proofs faster than ReProver even when compared against the wall-clock time.
+
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-backtracking.png)
+
+From Table 2, we can see that backtracking is important for proving longer theorems. From these tables, it is clear that our approach is not able to find the proofs fast, but also give up proving much faster when the theorem is hard enough.
 
 ### 4.3 Some interesting proofs found by CoPrA
 
