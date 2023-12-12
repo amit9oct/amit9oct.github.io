@@ -16,7 +16,7 @@ navbar-links:
   About Me: "aboutme"
   Résumé: "resume"  
   Resources:
-    - Machine Learning by Tom Mitchell: "https://www.cs.ubbcluj.ro/~gabis/ml/ml-books/McGrawHill%20-%20Machine%20Learning%20-Tom%20Mitchell.pdf"
+    - COPRA (In-Context Prover Agent): "https://amit9oct.github.io/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/" 
 
 # --- Logo --- #
 
