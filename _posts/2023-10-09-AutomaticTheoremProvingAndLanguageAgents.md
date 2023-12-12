@@ -118,7 +118,7 @@ combine an LLM’s capability to use tools [(Toolformer by Schick et al. (2023))
 
 ## 4. CoPrA: in-COntext PRover Agent
 
-We introduce a new approach [in-**Co**ntext **Pr**over **A**gent (COPRA)](https://trishullab.github.io/copra/) which is a Language Agent for ATP. 
+We introduce a new approach [in-**Co**ntext **Pr**over **A**gent (COPRA)](https://github.com/trishullab/copra) which is a Language Agent for ATP. 
 
 ![CoPraOverview](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-final-overview.png)
 
