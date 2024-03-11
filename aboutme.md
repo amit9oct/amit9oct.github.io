@@ -22,7 +22,7 @@ Besides that, I also enjoy solving fun mathematics problems, reading about numbe
 <!--Insert a thumbnail image along with every paper-->
 <table>
   <tr>
-    <td> <b>Thakur, Amitayush</b>, Yeming Wen, and Swarat Chaudhuri. <a href="https://amit9oct.github.io/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/">"A language-agent approach to formal theorem-proving."</a> arXiv preprint arXiv:2310.04353 (2023). <a href="https://arxiv.org/abs/2310.04353">[arXiv]</a>, <a href="https://github.com/trishullab/copra">[Code]</a> </td>
+    <td> <b>Thakur, Amitayush</b>, George Tsoukalas, Yeming Wen, Jimmy Xin, and Swarat Chaudhuri. <a href="https://amit9oct.github.io/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/">"An In-Context Learning Agent for Formal Theorem-Proving."</a> arXiv preprint arXiv:2310.04353 (2023). <a href="https://arxiv.org/abs/2310.04353">[arXiv]</a>, <a href="https://github.com/trishullab/copra">[Code]</a> </td>
     <td> <img src="/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/thumbnail.png" width="400" height="100" /> </td>
   </tr>
 </table>
