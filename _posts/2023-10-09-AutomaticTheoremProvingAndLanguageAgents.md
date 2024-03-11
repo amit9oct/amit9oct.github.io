@@ -1,6 +1,6 @@
 ---
 layout: post
-title: A Language-Agent Approach To Formal Theorem-Proving
+title: An In-Context Learning Agent for Formal Theorem-Proving
 subtitle: How can in-Context Learning help in proving theorems?
 share-img: /assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/thumbnail.png
 thumbnail-img: /assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/thumbnail.png
@@ -118,63 +118,103 @@ combine an LLM’s capability to use tools [(Toolformer by Schick et al. (2023))
 
 ## 4. CoPrA: in-COntext PRover Agent
 
-We introduce a new approach [in-**Co**ntext **Pr**over **A**gent (COPRA)](https://github.com/trishullab/copra) which is a Language Agent for ATP. 
+We introduce a new approach [in-**Co**ntext **Pr**over **A**gent (COPRA)](https://github.com/trishullab/copra) which is a in-Context agent for ATP. 
 
-![CoPraOverview](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-final-overview.png)
+![CoPraOverview](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copramainfigure.png)
 
->The image above shows how our approach works. We propose a novel theorem proving agent which uses history of previous proof states, failures, repository of useful lemmas, and LLM as part of a verbal policy to predict the next proof action which will lead to simplification of the proof-state. Full details of our approach is described in our paper [A Language-Agent Approach To Formal Theorem-Proving (CoPrA)](https://arxiv.org/abs/2310.04353).
+>The image above shows how our approach works. The agent takes as input a formal statement of a theorem and optional natural-language hints about how to prove the theorem. At each time step, it prompts the LLM to select the next tactic to apply. LLM-selected tactics are "executed" in the underlying proof assistant. If the tactic fails, \copra records this information and uses it to avoid future failures. Additionally, the agent uses lemmas and definitions retrieved from an external database to simplify proofs. For more details refer to our paper: [An In-Context Learning Agent for Formal Theorem-Provin (CoPrA)](https://arxiv.org/abs/2310.04353).
 
 
->(On a side-note: Copra actually means the dried, white flesh of the coconut from which coconut oil is extracted)
+>>(On a side-note: Copra actually means the dried, white flesh of the coconut from which coconut oil is extracted)
 
 ### 4.1 Approach
 
-Our approach is based on the following ideas:
-1. Use a stack to store the history of proof states and proof actions.
-2. Have a map for storing a map of proof states to bad proof actions.
-3. A Prompt Serialization Protocol (PSP) helps in laying out the history of proof actions, proof states, and textual rewards.
+Abstractly, our *proof environment* consists of:
 
-![Prompt Serialization Protocol](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-prompts.png)
+- A set of *states* $\mathcal{O}$. Here, 
+a state is either a set $O = \{o_1,\dots, o_k\}$ of 
+obligations $o_i$, or of the form $(O, w)$, where $O$ is a set of obligations and $w$ is a textual *error message*. States of the latter form are *error states*, and the set of such states is denoted by  
+$\mathit{Err}$.
+- A set of *initial states*, each consisting of a single obligation $(g_{in}, h_{in})$ extracted from a user-provided theorem.
+- A unique *goal state* $\mathtt{QED}$ is the empty obligation set. 
+- A finite set of *proof tactics*.
+- A transition function $T(O, a)$, which determines the result of applying a tactic $a$ to a state $O$. If $a$ can be successfully applied at state $O$, then $T(O, a)$ is the new set of obligations resulting from the application. If $a$ is a "bad" tactic, then $T(O, a)$ is an error state $(O, w_e)$, where $w_e$ is some feedback that explains the error. 
+Error states $(O, w)$ satisfy the property that $T((O, w), a) = (O, w)$ for all $a$. 
 
->In the above figure, Seq #1-#4 represent distinct invocations of the LLM. In each invocation, PSP first generates the “agent prompt,” which consists of three parts. The first part (“state”) is simply a serialization of the current proof state. The second (“stack”) incorporates information about previous actions as well as the bad actions for the current proof state. The third (“reward”) encodes the feedback from the environment regarding the success or failure of the last action. The
-response of the LLM to this prompt is then translated into a proof action. This action is then executed on the theorem prover.
+- A set of *global contexts*, each of which is a natural-language string that describes the theorem to be proven and insights ([Jiang et al., 2022](https://arxiv.org/abs/2210.12283)) about how to prove it. The theorem-proving agent can take a global context as an optional input and may use it to accelerate search. 
+
+We define the transition function $T$ to tactic sequences as:  
+$$
+T(O, \alpha) = 
+ \left\{\begin{array}{l}
+T(O, a_1) \qquad \textrm{if $n = 1$} \\
+T(T(O, \langle a_1,\dots, a_{n-1} \rangle), a_n) ~~~ \textrm{otherwise.}
+\end{array}
+\right. 
+$$
+
+The theorem-proving problem is now defined as follows: 
+
+**Problem Theorem-proving**
+
+Given an initial state $O_{in}$ 
+and an optional global context $\chi$, 
+find a tactic sequence $\alpha$ (a *proof*) such that 
+$T(O_{in}, \alpha) = \mathit{QED}$. 
+
+
+![COPRA Approach](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copraapproach.png)
+>The search procedure in $\texttt{COPRA}$. $T$ is the environment's transition function; $\mathit{st}$ is a stack, initialized to be empty. 
+$\mathit{Bad}(O)$ is a set of tactics, initialized to $\emptyset$, that are known to be bad at $O$. 
+$\texttt{Llm}$ is an LLM, 
+$Prompt$ generates a prompt,
+$Action$ parses the output of the LLM into a tactic (repeatedly querying the LLM in case there are formatting errors in its output),
+and $Retrieve$ gathers relevant lemmas and definitions from an external source. The overall procedure is called with a state $O_{in}$ and an optional global context $\chi$.
+
+![Prompt Serialization Protocol](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copraprompts.png)
+
+>A "conversation" between the LLM and the search algorithm in $\texttt{COPRA}$. Query $\#1$, Query $\#2$, $\dots$  represent queries made as the proof search progresses. The column labeled Query $\#i$ depicts the prompt at time step $i$ and the corresponding LLM response. The LLM response is parsed into a tactic and executed, with the error feedback incorporated into the next prompt.
 
 ### 4.2 Evaluation
 
 We evaluated our approach on two datasets: [miniF2F](https://github.com/facebookresearch/miniF2F) and [CompCert](https://github.com/UCSD-PL/proverbot9001/blob/master/compcert_projs_splits.json) which belong to different domains mathematics and software verification respectively.
 
-We use a metric called ***"Pass@k-inference"*** while comparing our approach with [ReProver](https://arxiv.org/abs/2306.15626) and [Proverbot9001](https://arxiv.org/abs/1907.07794). The standard metric for evaluating theorem-provers is pass@k. In this metric, a prover is given a budget of k proof attempts; the
-method is considered successful if one of these attempts leads to success. However, a key objective
-of our research is to discover proofs quickly, with fewer LLM queries and lower wall-clock time.
-The pass@k metric does not evaluate this characteristic as it does not quantify the number of LLM
-queries or amount of time needed by a proof attempt. 
+We use a metric called ***"Pass@k-with-n-queries"*** while comparing our approach with [ReProver](https://arxiv.org/abs/2306.15626) and [Proverbot9001](https://arxiv.org/abs/1907.07794). The standard metric for evaluating theorem-provers is *pass@k* ([Lample et al., 2022](https://arxiv.org/abs/2205.11491)). In this metric, a prover is given a budget of $k$ 
+*proof attempts*; the method is considered successful if one of these attempts leads to success. We consider a refinement of this metric called ***pass@k-with-n-queries***. Here, we measure the number of correct proofs that a prover can generate given *k* attempts, each with a budget of $\texttt{n}$ queries from the LLM or neural model. We enforce that a single query includes exactly one action (a sequence of tactics) to be used in the search. We want this metric to be correlated with the number of correct proofs that the prover produces within a specified wall-clock time budget; however, the cost of an inference query on an LLM is proportional to the number of responses generated per query. To maintain the correlation between the number of inference queries and wall-clock time, we restrict each inference on the LLM to a single response. 
 
 ![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-miniF2F-pass-k-guidance-steps.png)
-> The figure shows, comparison between ReProver and our approach on miniF2F dataset. It shows the number of proofs solved by CoPrA and ReProver as a function of the number of inference steps. CoPrA proves a lot more theorems in just 60 inference steps.
+> The figure shows, comparison between ReProver and our approach on miniF2F dataset. It shows that not only $\texttt{COPRA}$ solves more problems than ReProver, but it also does that in lesser number of queries. $\texttt{COPRA}$ solves almost all problems solved by ReProver in less than 60 queries.
 
 ![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-compcert-pass-k-guidance-steps-gpt-4-turbo.png)
-> The figure shows, comparison between Proverbot9001 and our approach on CompCert dataset. It shows the number of proofs solved by CoPrA and Proverbot9001 as a function of the number of inference steps. CoPrA proves more theorems in just 60 inference steps.
+> The figure shows, comparison between Proverbot9001 and our approach on CompCert dataset. We show that $\texttt{COPRA}$ works well across domains (theorem proving in software verification as well as formal mathematics).
 
 The tables below shows a detailed comparison of our approach with other approaches.
 
 ![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-copra-vs-others-minif2f.png)
-> The table above shows, comparison between CoPrA and other approaches on miniF2F dataset. It is interesting to note that an ensemble of CoPrA with one-shot proves more theorems than most of the other approach.
+> Aggregate statistics for $\texttt{COPRA}$ and the baselines on $\texttt{miniF2F}$ dataset. Note the various ablations of $\texttt{COPRA}$ with and without retrieval or informal proofs. The timeout is a wall-clock time budget in seconds allocated across all attempts. Unless otherwise specified, (i) $\texttt{COPRA}$ uses GPT-4 as the LLM (ii) the temperature ($T$) is set to 0.
 
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/table-miniF2F-detailed-comparison.png)
-
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/table-wallclock-time.png)
 
 ![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-miniF2F-pass-k-seconds.png)
->From Table 3, and the above figures, we can see that our approach is able to find proofs faster than ReProver even when compared against the wall-clock time.
+>We show that *pass@k-with-n-queries*, correlates very well with wall-clock time for finding proofs by using the metric *pass@k-seconds*. *pass@k-seconds* measures the number of proofs that an approach can find in less than $k$ seconds. The plot shows that *pass@k-seconds* follows the same trend as *pass@k-with-n-queries*.
 
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/img-backtracking.png)
-
-From Table 2, we can see that backtracking is important for proving longer theorems. From these tables, it is clear that our approach is not able to find the proofs fast, but also give up proving much faster when the theorem is hard enough.
 
 ### 4.3 Some interesting proofs found by CoPrA
 
-![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copra_lean_proofs.png)
->The above image shows, some proofs in Lean found by CoPrA on miniF2F dataset.
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/retrieval_helps_proof.png)
+>A theorem in the "numbertheory" category that $\texttt{COPRA}$ could prove but $\texttt{ReProver}$ could not. $\texttt{COPRA}$ could prove this result because of retrieval. BM25 retrieval found the lemma $\texttt{pnat.gcd\_mul\_lcm} : (\texttt{n}\; \texttt{m} : \mathbb{N}+) : (\texttt{gcd}\;\texttt{n}\;\texttt{m}) * (\texttt{lcm}\;\texttt{n}\;\texttt{m}) = \texttt{n} * \texttt{m}$ which helped $\texttt{COPRA}$ to prove the theorem above.
+
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/informal_helps_proof.png)
+>An interesting proof generated by $\texttt{COPRA}$ while using informal proofs hints generated via GPT-4.
+
+
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copra_miniF2F_proofs.png)
+>Some other interesting proofs generated for $\texttt{miniF2F}$ by $\texttt{COPRA}$. The length of the proofs generated shows that interaction with the environment helps in fixing the errors encountered while writing long proofs. These long sequences of rewrites are not easy to synthesize without knowing the exact execution feedback from the environment which often contains the hint to fix the rewrites.
+
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copra_lean_proofs_backtracking.png)
+>Some interesting proofs generated for $\texttt{miniF2F}$ dataset which were generated because of $\texttt{COPRA}$'s backtracking capabilities.
+
+![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copra_lean_proofs_different_from_miniF2F.png)
+>Some proofs found by $\texttt{COPRA}$ as compared to the proofs mentioned in the $\texttt{miniF2F}$ test dataset. It is interesting to see that the proofs generated by $\texttt{COPRA}$ are different from the proofs mentioned in the repository. This is especially true when the proofs are longer. It is also worth noting that occasionally $\texttt{COPRA}$ can find very simple proofs for longer proofs mentioned in $\texttt{miniF2F}$ test dataset. (a.1), (b.1), and (c.1) show the proofs as mentioned in the $\texttt{miniF2F}$ dataset, while (a.2), (b.2), and (c.2) show the corresponding proofs generated by $\texttt{COPRA}$.
 
 ![CoPraEvaluation](/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/copra_coq_proofs.png)
->The above image shows, some proofs in Coq found by CoPrA on CompCert dataset.
+>Some other interesting proofs generated for CompCert by $\texttt{COPRA}$. We can see that these proofs are long, and often use "apply" tactic which shows that $\texttt{COPRA}$ can effectively use the retrieved information to discharge given proof states.
