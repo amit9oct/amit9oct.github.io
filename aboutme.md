@@ -7,7 +7,7 @@ subtitle: Amitayush Thakur
 I’m Amitayush Thakur, a Ph.D. student at UT Austin advised by [Prof. Swarat Chaudhuri](https://www.cs.utexas.edu/~swarat/).
 
 My research interest is broadly at the intersection of "AI for Mathematics" and "AI for Code". I'm interested in automated mathematical reasoning through LLMs and its implication in
-fully verified program synthesis essential for generating industry-grade code from AI. I am also interested in . I'm also interested in program synthesis from natural language, neuro-symbolic AI, explainability and interpretability of Deep Neural Nets through symbols.
+fully verified program synthesis essential for generating industry-grade code from AI. I'm also interested in program synthesis from natural language, neuro-symbolic AI, explainability and interpretability of Deep Neural Nets through symbols.
 
 Before joining UT, I worked as Software Engineer 2 at Microsoft in Azure, and before that as a research intern at Microsoft Research.
 
