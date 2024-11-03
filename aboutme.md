@@ -23,10 +23,10 @@ Besides that, I also enjoy solving fun mathematics problems, reading about numbe
 <table>
   <tr>
     <td> <b>Thakur, Amitayush</b>, George Tsoukalas, Yeming Wen, Jimmy Xin, and Swarat Chaudhuri. <a href="https://amit9oct.github.io/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/">"An In-Context Learning Agent for Formal Theorem-Proving."</a> First Conference on Language Modeling (COLM), 2024. <a href="https://arxiv.org/abs/2310.04353">[arXiv]</a>, <a href="https://github.com/trishullab/copra">[Code]</a> </td>
-    <td> <img src="/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/thumbnail.png" width="400" height="100" /> </td>
+    <td> <img src="/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/thumbnail.png" width="600" height="200" /> </td>
   </tr>
   <tr>
     <td>Tsoukalas, George, Jasper Lee, John Jennings, Jimmy Xin, Michelle Ding, Michael Jennings, <b>Amitayush Thakur</b>, and Swarat Chaudhuri.<a href="https://trishullab.github.io/PutnamBench/">"PutnamBench: Evaluating Neural Theorem-Provers on the Putnam Mathematical Competition." </a> Neural Information Processing Systems (NeurIPS), 2024. <a href="https://arxiv.org/abs/2407.11214">[arXiv]</a>, <a href="https://github.com/trishullab/PutnamBench">[Code]</a> </td>
-    <td> <img src="/assets/img/thumbnails/putnam_bench_thumbnail.png" width="400" height="100" /> </td>
+    <td> <img src="/assets/img/thumbnails/putnam_bench_thumbnail.png" width="600" height="200" /> </td>
   </tr>
 </table>
