@@ -22,11 +22,15 @@ Besides that, I also enjoy solving fun mathematics problems, reading about numbe
 <!--Insert a thumbnail image along with every paper-->
 <table>
   <tr>
-    <td> <b>Thakur, Amitayush</b>, George Tsoukalas, Yeming Wen, Jimmy Xin, and Swarat Chaudhuri. <a href="https://amit9oct.github.io/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/">"An In-Context Learning Agent for Formal Theorem-Proving."</a> First Conference on Language Modeling (COLM), 2024. <a href="https://arxiv.org/abs/2310.04353">[arXiv]</a>, <a href="https://github.com/trishullab/copra">[Code]</a> </td>
-    <td> <img src="/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/thumbnail.png" width="3000" height="200" /> </td>
+    <td> <b>Thakur, Amitayush</b>, George Tsoukalas, Greg Durrett, and Swarat Chaudhuri. <a href="https://arxiv.org/abs/2502.04671">"<span style="font-variant:small-caps;">ProofWala</span>: Multilingual Proof Data Synthesis and Theorem-Proving"</a> PrePrint, 2025. <a href="https://arxiv.org/abs/2502.04671">[arXiv]</a>, <a href="https://github.com/trishullab/proof-wala">[Code]</a> </td>
+    <td> <img src="/assets/img/2025-02-07-ProofWala/thumbnail.png" width="3000" height="200" /> </td>
   </tr>
   <tr>
     <td>Tsoukalas, George, Jasper Lee, John Jennings, Jimmy Xin, Michelle Ding, Michael Jennings, <b>Amitayush Thakur</b>, and Swarat Chaudhuri.<a href="https://trishullab.github.io/PutnamBench/">"PutnamBench: Evaluating Neural Theorem-Provers on the Putnam Mathematical Competition." </a> Neural Information Processing Systems (NeurIPS), 2024. <a href="https://arxiv.org/abs/2407.11214">[arXiv]</a>, <a href="https://github.com/trishullab/PutnamBench">[Code]</a> </td>
     <td> <img src="/assets/img/thumbnails/putnam_bench_thumbnail.png" width="3000" height="200" /> </td>
+  </tr>
+  <tr>
+    <td> <b>Thakur, Amitayush</b>, George Tsoukalas, Yeming Wen, Jimmy Xin, and Swarat Chaudhuri. <a href="https://amit9oct.github.io/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/">"An In-Context Learning Agent for Formal Theorem-Proving."</a> First Conference on Language Modeling (COLM), 2024. <a href="https://arxiv.org/abs/2310.04353">[arXiv]</a>, <a href="https://github.com/trishullab/copra">[Code]</a> </td>
+    <td> <img src="/assets/img/2023-10-09-AutomaticTheoremProvingAndLanguageAgents/thumbnail.png" width="3000" height="200" /> </td>
   </tr>
 </table>
