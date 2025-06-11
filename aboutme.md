@@ -22,6 +22,18 @@ Besides that, I also enjoy solving fun mathematics problems, reading about numbe
 <!--Insert a thumbnail image along with every paper-->
 <table>
   <tr>
+  <!-- 
+      title={CLEVER: A Curated Benchmark for Formally Verified Code Generation}, 
+      author={Amitayush Thakur and Jasper Lee and George Tsoukalas and Meghana Sistla and Matthew Zhao and Stefan Zetzsche and Greg Durrett and Yisong Yue and Swarat Chaudhuri},
+      year={2025},
+      eprint={2505.13938},
+      archivePrefix={arXiv},
+      primaryClass={cs.LG},
+      url={https://arxiv.org/abs/2505.13938}, 
+  -->
+    <td> <b>Thakur, Amitayush</b>, Jasper Lee, George Tsoukalas, Meghana Sistla, Matthew Zhao, Stefan Zetzsche, Greg Durrett, Yisong Yue, and Swarat Chaudhuri. <a href="https://arxiv.org/abs/2505.13938">"CLEVER: A Curated Benchmark for Formally Verified Code Generation"</a> PrePrint, 2025. <a href="https://arxiv.org/abs/2505.13938">[arXiv]</a>, <a href="https://github.com/trishullab/clever">[Code]</a> </td>
+    <td> <img src="/assets/img/2025-06-11-CLEVER/thumbnail.png" width="3000" height="200" /> </td>
+  <tr>
     <td> <b>Thakur, Amitayush</b>, George Tsoukalas, Greg Durrett, and Swarat Chaudhuri. <a href="https://arxiv.org/abs/2502.04671">"<span style="font-variant:small-caps;">ProofWala</span>: Multilingual Proof Data Synthesis and Theorem-Proving"</a> PrePrint, 2025. <a href="https://arxiv.org/abs/2502.04671">[arXiv]</a>, <a href="https://github.com/trishullab/proof-wala">[Code]</a> </td>
     <td> <img src="/assets/img/2025-02-07-ProofWala/thumbnail.png" width="3000" height="200" /> </td>
   </tr>
