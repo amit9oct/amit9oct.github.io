@@ -22,7 +22,7 @@ Besides that, I also enjoy solving fun mathematics problems, reading about numbe
 <!--Insert a thumbnail image along with every paper-->
 <table>
   <tr>
-    <td> <b>Thakur, Amitayush</b>, Jasper Lee, George Tsoukalas, Meghana Sistla, Matthew Zhao, Stefan Zetzsche, Greg Durrett, Yisong Yue, and Swarat Chaudhuri. <a href="https://arxiv.org/abs/2505.13938">"CLEVER: A Curated Benchmark for Formally Verified Code Generation"</a> PrePrint, 2025. <a href="https://arxiv.org/abs/2505.13938">[arXiv]</a>, <a href="https://github.com/trishullab/clever">[Code]</a> </td>
+    <td> <b>Thakur, Amitayush</b>, Jasper Lee, George Tsoukalas, Meghana Sistla, Matthew Zhao, Stefan Zetzsche, Greg Durrett, Yisong Yue, and Swarat Chaudhuri. <a href="https://arxiv.org/abs/2505.13938">"CLEVER: A Curated Benchmark for Formally Verified Code Generation"</a> NeurIPS, 2025. <a href="https://arxiv.org/abs/2505.13938">[arXiv]</a>, <a href="https://github.com/trishullab/clever">[Code]</a> </td>
     <td> <img src="/assets/img/2025-06-11-CLEVER/thumbnail.png" width="3000" height="200" /> </td>
   </tr>
   <tr>
