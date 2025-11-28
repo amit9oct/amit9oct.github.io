@@ -22,6 +22,10 @@ Besides that, I also enjoy solving fun mathematics problems, reading about numbe
 <!--Insert a thumbnail image along with every paper-->
 <table>
   <tr>
+    <td> Tsoukalas, George, Rahul Saha, <b>Amitayush Thakur</b>, Sabrina Reguyal, Swarat Chaudhuri. <a href="https://arxiv.org/abs/2511.14778">"Learning Interestingness in Automated Mathematical Theory Formation"</a> NeurIPS, 2025. (Spotlight presentation) <a href="https://arxiv.org/abs/2511.14778">[arXiv]</a>, <a href="https://github.com/trishullab/Fermat">[Code]</a> </td>
+    <td> <img src="/assets/img/2025-11-27-LearningInterestingness/thumbnail.png" width="3000" height="200" /> </td>
+  </tr>
+  <tr>
     <td> <b>Thakur, Amitayush</b>, Jasper Lee, George Tsoukalas, Meghana Sistla, Matthew Zhao, Stefan Zetzsche, Greg Durrett, Yisong Yue, and Swarat Chaudhuri. <a href="https://arxiv.org/abs/2505.13938">"CLEVER: A Curated Benchmark for Formally Verified Code Generation"</a> NeurIPS, 2025. <a href="https://arxiv.org/abs/2505.13938">[arXiv]</a>, <a href="https://github.com/trishullab/clever">[Code]</a> </td>
     <td> <img src="/assets/img/2025-06-11-CLEVER/thumbnail.png" width="3000" height="200" /> </td>
   </tr>
