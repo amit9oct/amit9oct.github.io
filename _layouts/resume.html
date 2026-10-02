@@ -60,16 +60,15 @@ layout: base
 
     function getGoogleViewerUrl()
     {
-      var relUrl = document.getElementById("pdf-name").value;
-      var assetUrl = `https://amit9oct.github.io${relUrl}`;
-      var googleUrl = `https://docs.google.com/gview?embedded=true&url=${assetUrl}`;
+      var assetUrl = getAssetUrl();
+      var googleUrl = `https://docs.google.com/gview?embedded=true&url=${encodeURIComponent(assetUrl)}`;
       return googleUrl;
     }
 
     function getAssetUrl()
     {
       var relUrl = document.getElementById("pdf-name").value;
-      var assetUrl = `https://amit9oct.github.io${relUrl}`;
+      var assetUrl = `${window.location.origin}${relUrl}`;
       return assetUrl;
     }
 

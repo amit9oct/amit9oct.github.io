@@ -31,7 +31,7 @@ function readTextFile(file)
 //not used
 function loadPDF(relUrl)
 {
-    var url = `https://amit9oct.github.io${relUrl}`;
+    var url = `${window.location.origin}${relUrl}`;
 
     // Loaded via <script> tag, create shortcut to access PDF.js exports.
     var pdfjsLib = window['pdfjs-dist/build/pdf'];
