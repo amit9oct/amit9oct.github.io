@@ -1,13 +1,11 @@
-# project
-_site
-.sass-cache
-.vagrant
+# build output
+dist/
+.astro/
+
+# dependencies
+node_modules/
 
 # general
 .DS_Store
 Thumbs.db
 ehthumbs.db
-
-Gemfile.lock
-
-beautiful-jekyll-theme-*.gem

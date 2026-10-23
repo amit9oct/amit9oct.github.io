@@ -1,0 +1,78 @@
+---
+// Giscus: comments stored as GitHub Discussions in this repo (category "Announcements",
+// so only giscus/the owner can open threads; anyone with GitHub can reply).
+interface Props {
+  term: string; // stable per-post key, so renaming a post keeps its thread
+}
+const { term } = Astro.props;
+---
+
+<section class="discussion" id="discussion" aria-labelledby="discussion-title">
+  <h2 id="discussion-title">Discussion</h2>
+  <p class="muted">Questions, corrections, or ideas? Join in with your GitHub account.</p>
+  <div
+    class="giscus-mount"
+    data-repo="amit9oct/amit9oct.github.io"
+    data-repo-id="MDEwOlJlcG9zaXRvcnkyODQxMDA3MjQ="
+    data-category="Announcements"
+    data-category-id="DIC_kwDOEO8IdM4DJZVt"
+    data-term={term}
+  >
+  </div>
+</section>
+
+<script>
+  const LIGHT = 'light';
+  const DARK = 'dark_dimmed';
+
+  const isDark = () => document.documentElement.dataset.theme === 'dark';
+
+  const mount = document.querySelector<HTMLElement>('.giscus-mount');
+  if (mount) {
+    const s = document.createElement('script');
+    s.src = 'https://giscus.app/client.js';
+    s.async = true;
+    s.crossOrigin = 'anonymous';
+    const attrs: Record<string, string> = {
+      'data-repo': mount.dataset.repo!,
+      'data-repo-id': mount.dataset.repoId!,
+      'data-category': mount.dataset.category!,
+      'data-category-id': mount.dataset.categoryId!,
+      'data-mapping': 'specific',
+      'data-term': mount.dataset.term!,
+      'data-strict': '1',
+      'data-reactions-enabled': '1',
+      'data-emit-metadata': '1',
+      'data-input-position': 'top',
+      'data-theme': isDark() ? DARK : LIGHT,
+      'data-lang': 'en',
+      // Eager so the comment count in the post header fills in right away.
+      'data-loading': 'eager',
+    };
+    Object.entries(attrs).forEach(([k, v]) => s.setAttribute(k, v));
+    mount.appendChild(s);
+
+    // Keep giscus in sync with the site's theme toggle.
+    const sync = () => {
+      const frame = document.querySelector<HTMLIFrameElement>('iframe.giscus-frame');
+      frame?.contentWindow?.postMessage(
+        { giscus: { setConfig: { theme: isDark() ? DARK : LIGHT } } },
+        'https://giscus.app',
+      );
+    };
+    // Show the comment count on the "Comments" button in the post header.
+    const setCount = (n: number) => {
+      document.querySelectorAll<HTMLElement>('[data-comment-count]').forEach((el) => {
+        el.textContent = `${n === 1 ? '1 comment' : `${n} comments`} ↓`;
+      });
+    };
+    window.addEventListener('message', (e) => {
+      if (e.origin !== 'https://giscus.app') return;
+      const g = e.data?.giscus;
+      if (g?.discussion) setCount(g.discussion.totalCommentCount + g.discussion.totalReplyCount);
+      else if (typeof g?.error === 'string' && g.error.includes('not found')) setCount(0);
+    });
+
+    new MutationObserver(sync).observe(document.documentElement, { attributeFilter: ['data-theme'] });
+  }
+</script>

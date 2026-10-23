@@ -1,0 +1,43 @@
+---
+import { ME, type Paper } from '../data/papers';
+
+interface Props {
+  papers: Paper[];
+  thumbs?: boolean;
+}
+const { papers, thumbs = true } = Astro.props;
+
+const highlight = (authors: string) =>
+  authors.replace(ME, `<span class="me">${ME}</span>`);
+---
+
+<ol class="papers">
+  {
+    papers.map((p) => {
+      const primary = p.links[0]?.href;
+      const showThumb = thumbs && p.thumbnail;
+      return (
+        <li class:list={['paper', { 'no-thumb': !showThumb }]}>
+          {showThumb && (
+            <a class="paper-thumb" href={primary} tabindex="-1" aria-hidden="true">
+              <img src={p.thumbnail} alt="" loading="lazy" decoding="async" />
+            </a>
+          )}
+          <div>
+            <h3 class="paper-title">
+              <a href={primary}>{p.title}</a>
+            </h3>
+            <p class="paper-authors" set:html={highlight(p.authors)} />
+            <div class="paper-meta">
+              <span class="venue">{p.venue}</span>
+              {p.award && <span class="award">★ {p.award}</span>}
+              {p.links.map((l) => (
+                <a href={l.href}>[{l.label}]</a>
+              ))}
+            </div>
+          </div>
+        </li>
+      );
+    })
+  }
+</ol>

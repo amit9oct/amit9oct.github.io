@@ -1,0 +1,20 @@
+---
+import Base from '../layouts/Base.astro';
+import { site } from '../data/site';
+---
+
+<Base title="CV" description="Curriculum vitae of Amitayush Thakur.">
+  <div class="container">
+    <header class="page-head measure">
+      <span class="label">Curriculum vitae</span>
+      <h1>CV</h1>
+      <div class="post-links">
+        <a class="btn" href={site.cv} download="Amitayush_Thakur_CV.pdf">Download PDF ↓</a>
+        <a class="btn" href={site.cv}>Open in new tab ↗</a>
+      </div>
+    </header>
+    <object class="cv-frame" data={`${site.cv}#view=FitH`} type="application/pdf" aria-label="CV (PDF)">
+      <p>Your browser can't display the PDF inline. <a href={site.cv}>Download it here.</a></p>
+    </object>
+  </div>
+</Base>

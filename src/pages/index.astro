@@ -1,0 +1,158 @@
+---
+import Base from '../layouts/Base.astro';
+import PaperList from '../components/PaperList.astro';
+import PostList from '../components/PostList.astro';
+import { site } from '../data/site';
+import { papers, themes } from '../data/papers';
+import { news, experience } from '../data/news';
+import { getPosts } from '../lib/utils';
+
+const selected = papers.filter((p) => p.selected);
+const posts = (await getPosts()).slice(0, 3);
+const areas = (['agents', 'verified-code', 'neurosymbolic'] as const).map((k) => themes[k]);
+---
+
+<Base>
+  <div class="container">
+    <section class="hero">
+      <div class="measure">
+        <h1>{site.name}</h1>
+        <div class="role">{site.role} · advised by <a href="https://www.cs.utexas.edu/~swarat/">Prof. Swarat Chaudhuri</a></div>
+
+        <p class="lede">
+          I build AI systems that reason with proofs: LLM agents that write machine-checked proofs, and code generators whose
+          output comes with a formal guarantee that it is correct.
+        </p>
+        <p>
+          My research sits between <em>AI for mathematics</em> and <em>AI for code</em>: theorem-proving agents in Lean and
+          Coq, benchmarks for formally verified code generation, and systems that discover new mathematics. Before my Ph.D. I
+          spent five years at Microsoft, building distributed services in Azure and doing program synthesis research at
+          Microsoft Research. I studied Computer Science and Mathematics at BITS Pilani.
+        </p>
+
+        {
+          site.jobMarket.show && (
+            <div class="callout job-callout">
+              <p>{site.jobMarket.text}</p>
+              <div class="actions">
+                <a href={site.cv}>Download CV →</a>
+                <a href={site.calendly}>Book a meeting →</a>
+                <a href={`mailto:${site.email}`}>Email me →</a>
+              </div>
+            </div>
+          )
+        }
+
+        <ul class="links">
+          {
+            site.links.map((l) => (
+              <li>
+                <a href={l.href}>{l.label}</a>
+              </li>
+            ))
+          }
+          <li><a href="/cv">CV</a></li>
+        </ul>
+      </div>
+      <figure class="portrait">
+        <img src={site.avatar} alt={`Portrait of ${site.name}`} width="522" height="643" />
+      </figure>
+    </section>
+
+    <div class="two-col">
+      <section class="section">
+        <div class="section-head">
+          <h2><span class="num">§1</span>News</h2>
+        </div>
+        <ul class="dated">
+          {
+            news.slice(0, 5).map((n) => (
+              <li>
+                <time>{n.date}</time>
+                <span set:html={n.html} />
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+
+      <section class="section">
+        <div class="section-head">
+          <h2><span class="num">§2</span>Experience</h2>
+        </div>
+        <ul class="dated">
+          {
+            experience.map((e) => (
+              <li>
+                <span class="when">{e.when}</span>
+                <span>
+                  <b>{e.org}</b>
+                  <br />
+                  {e.role}
+                  {e.note && (
+                    <>
+                      <br />
+                      <span class="where">{e.note}</span>
+                    </>
+                  )}
+                </span>
+              </li>
+            ))
+          }
+        </ul>
+      </section>
+    </div>
+
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span class="num">§3</span>Research</h2>
+        <a href="/research">All papers →</a>
+      </div>
+      <div class="themes">
+        {
+          areas.map((a, i) => (
+            <div class="theme-card">
+              <span class="label">Thread {i + 1}</span>
+              <h3>{a.title}</h3>
+              <p>{a.blurb}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span class="num">§4</span>Selected papers</h2>
+        <a href="https://scholar.google.com/citations?user=d3XU8EAAAAAJ">Google Scholar →</a>
+      </div>
+      <PaperList papers={selected} />
+    </section>
+
+    {
+      posts.length > 0 && (
+        <section class="section">
+          <div class="section-head">
+            <h2>
+              <span class="num">§5</span>Writing
+            </h2>
+            <a href="/blog">All posts →</a>
+          </div>
+          <PostList posts={posts} />
+        </section>
+      )
+    }
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span class="num">§6</span>Also on my mind</h2>
+      </div>
+      <p class="measure">
+        I'm increasingly interested in <em>privacy-preserving AI</em>, especially running LLMs under fully homomorphic
+        encryption (FHE). It brings together two things I love: language models, and the number theory and cryptography I
+        grew up reading about.
+      </p>
+    </section>
+  </div>
+</Base>

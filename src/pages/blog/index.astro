@@ -1,0 +1,32 @@
+---
+import Base from '../../layouts/Base.astro';
+import PostList from '../../components/PostList.astro';
+import { getPosts } from '../../lib/utils';
+import { site } from '../../data/site';
+
+const posts = await getPosts();
+const years = [...new Set(posts.map((p) => p.data.date.getUTCFullYear()))];
+---
+
+<Base title="Proof Sketches" description="Proof Sketches: essays and explainers by Amitayush Thakur on the intuition behind formal reasoning, AI agents, and verified code.">
+  <div class="container">
+    <header class="page-head measure">
+      <span class="label">Blog</span>
+      <h1>Proof Sketches</h1>
+      <p>The intuition behind formal reasoning, AI agents, and verified code.</p>
+    </header>
+    <div class="measure">
+      {
+        years.map((y) => (
+          <section>
+            <h2 class="year-head">{y}</h2>
+            <PostList posts={posts.filter((p) => p.data.date.getUTCFullYear() === y)} />
+          </section>
+        ))
+      }
+      <p class="muted" style="margin-top:3rem;font-size:1rem">
+        Get new posts: <a href={`https://x.com/${site.x}`}>follow on X</a> or subscribe via <a href="/feed.xml">RSS</a>.
+      </p>
+    </div>
+  </div>
+</Base>
