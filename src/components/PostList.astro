@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import { formatDate, postImage, tagSlug } from '../lib/utils';
+
+interface Props {
+  posts: CollectionEntry<'blog'>[];
+}
+const { posts } = Astro.props;
+---
+
+<ul class="posts">
+  {
+    posts.map((post) => {
+      const href = `/blog/${post.id}`;
+      const img = postImage(post);
+      return (
+        <li class:list={{ 'has-thumb': img }}>
+          <div>
+            <a class="post-link" href={href}>
+              {post.data.title}
+            </a>
+            {post.data.subtitle && <p>{post.data.subtitle}</p>}
+            <div class="tags">
+              <time datetime={post.data.date.toISOString()}>{formatDate(post.data.date)}</time>
+              {post.data.tags.slice(0, 4).map((t) => (
+                <a href={`/blog/tags/${tagSlug(t)}`}>#{t}</a>
+              ))}
+            </div>
+          </div>
+          {img && (
+            <a class="post-thumb" href={href} tabindex="-1" aria-hidden="true">
+              <img src={img} alt="" loading="lazy" decoding="async" />
+            </a>
+          )}
+        </li>
+      );
+    })
+  }
+</ul>

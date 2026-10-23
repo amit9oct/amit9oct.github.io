@@ -1,0 +1,116 @@
+---
+import '../styles/global.css';
+import { site } from '../data/site';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+}
+
+const { title, description = site.description, image = site.avatar, type = 'website' } = Astro.props;
+const pageTitle = title ? `${title} | ${site.name}` : `${site.name}: AI for Math & Verified Code`;
+const canonical = new URL(Astro.url.pathname, Astro.site);
+const ogImage = new URL(image, Astro.site);
+const path = Astro.url.pathname.replace(/\/$/, '') || '/';
+
+const nav = [
+  { href: '/research', label: 'Research' },
+  { href: '/blog', label: 'Blog' },
+  { href: '/cv', label: 'CV' },
+];
+
+const person = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: site.name,
+  url: Astro.site?.toString(),
+  image: new URL(site.avatar, Astro.site).toString(),
+  jobTitle: 'Ph.D. Student',
+  affiliation: { '@type': 'CollegeOrUniversity', name: 'The University of Texas at Austin' },
+  alumniOf: [{ '@type': 'CollegeOrUniversity', name: 'BITS Pilani' }],
+  knowsAbout: ['Automated theorem proving', 'Large language models', 'Formal verification', 'Lean', 'Program synthesis', 'Fully homomorphic encryption'],
+  sameAs: site.links.filter((l) => l.href.startsWith('http')).map((l) => l.href),
+};
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={description} />
+    <link rel="canonical" href={canonical} />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="alternate" type="application/rss+xml" title={`Proof Sketches · ${site.name}`} href="/feed.xml" />
+    <link rel="sitemap" href="/sitemap-index.xml" />
+    <meta name="author" content={site.name} />
+
+    <meta property="og:type" content={type} />
+    <meta property="og:title" content={title ?? site.name} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonical} />
+    <meta property="og:image" content={ogImage} />
+    <meta name="twitter:card" content={image === site.avatar ? 'summary' : 'summary_large_image'} />
+    <meta name="twitter:site" content={`@${site.x}`} />
+    <meta name="twitter:creator" content={`@${site.x}`} />
+
+    {path === '/' && <script type="application/ld+json" set:html={JSON.stringify(person)} />}
+
+    <script is:inline>
+      try {
+        const t = localStorage.getItem('theme');
+        if (t) document.documentElement.dataset.theme = t;
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <a class="sr-only" href="#main">Skip to content</a>
+    <header class="site-header">
+      <div class="container">
+        <a class="wordmark" href="/">{site.name}</a>
+        <nav class="nav" aria-label="Main">
+          {
+            nav.map((n) => (
+              <a href={n.href} aria-current={path.startsWith(n.href) ? 'page' : undefined}>
+                {n.label}
+              </a>
+            ))
+          }
+          <button class="theme-toggle" type="button" aria-label="Toggle dark mode" id="theme-toggle">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true">
+              <path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path>
+            </svg>
+          </button>
+        </nav>
+      </div>
+    </header>
+
+    <main id="main">
+      <slot />
+    </main>
+
+    <footer class="site-footer">
+      <div class="container">
+        <span><span class="qed">∎</span>&nbsp; {site.tagline}</span>
+        <span class="mono" style="font-size:0.78rem">
+          © {new Date().getFullYear()} {site.name} · <a href="/feed.xml">RSS</a> ·
+          <a href="https://github.com/amit9oct/amit9oct.github.io">Source</a>
+        </span>
+      </div>
+    </footer>
+
+    <script is:inline>
+      document.getElementById('theme-toggle').addEventListener('click', () => {
+        const root = document.documentElement;
+        const dark = root.dataset.theme === 'dark';
+        root.dataset.theme = dark ? 'light' : 'dark';
+        try {
+          localStorage.setItem('theme', root.dataset.theme);
+        } catch {}
+      });
+    </script>
+  </body>
+</html>

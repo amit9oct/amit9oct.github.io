@@ -1,0 +1,57 @@
+---
+import Base from '../layouts/Base.astro';
+import PaperList from '../components/PaperList.astro';
+import { papers, themes, type Theme } from '../data/papers';
+import { talks } from '../data/news';
+
+const order: Theme[] = ['agents', 'verified-code', 'neurosymbolic', 'other'];
+const groups = order
+  .map((key) => ({ key, ...themes[key], papers: papers.filter((p) => p.theme === key) }))
+  .filter((g) => g.papers.length);
+---
+
+<Base title="Research" description="Publications, preprints, and talks by Amitayush Thakur on LLM theorem proving, verified code generation, and neuro-symbolic AI.">
+  <div class="container">
+    <header class="page-head measure">
+      <span class="label">Research</span>
+      <h1>Papers &amp; talks</h1>
+      <p>
+        How can machines reason rigorously? I approach that question through formal proof: if an AI's output can be checked by
+        a proof assistant, we never have to take it on trust.
+      </p>
+    </header>
+
+    {
+      groups.map((g, i) => (
+        <section class="section">
+          <div class="section-head">
+            <h2>
+              <span class="num">§{i + 1}</span>
+              {g.title}
+            </h2>
+          </div>
+          {g.blurb && <p class="measure muted" style="margin-top:-0.5rem">{g.blurb}</p>}
+          <PaperList papers={g.papers} thumbs={g.key !== 'other'} />
+        </section>
+      ))
+    }
+
+    <section class="section">
+      <div class="section-head">
+        <h2><span class="num">§{groups.length + 1}</span>Invited talks</h2>
+      </div>
+      <ul class="dated">
+        {
+          talks.map((t) => (
+            <li>
+              <time>{t.date}</time>
+              <span>
+                “{t.title}” <span class="where">· {t.venue}</span>
+              </span>
+            </li>
+          ))
+        }
+      </ul>
+    </section>
+  </div>
+</Base>
