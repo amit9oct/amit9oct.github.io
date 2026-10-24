@@ -848,3 +848,16 @@ pre {
     scroll-behavior: auto;
   }
 }
+
+/* Small optional "Watch:" / "Read:" pointer inside a post. */
+.prose .aside-link {
+  margin: -0.5rem 0 1.5rem;
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+.prose .aside-link a {
+  color: inherit;
+}
+.prose .aside-link a:hover {
+  color: var(--accent);
+}
