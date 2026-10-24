@@ -4,7 +4,6 @@ subtitle: Can We Prove Software Is Bug-Free, or Is Trust the Final Axiom?
 date: 2026-10-23
 tags: [Formal Verification, AI for Code, Specifications, Trusted Computing Base, Proof Assistants]
 thumbnail: /assets/img/2026-10-23-Trust/qed-proven-against-reality.webp
-draft: true
 ---
 
 ![A "Q.E.D. – PROVEN*" software correctness insurance policy whose exclusions include specification bugs, compiler bugs, cosmic rays, and Tuesdays](/assets/img/2026-10-23-Trust/qed-insurance-policy.webp)
