@@ -38,7 +38,11 @@ export const papers: Paper[] = [
     venue: 'Preprint',
     year: 2026,
     theme: 'neurosymbolic',
-    links: [{ label: 'arXiv', href: 'https://arxiv.org/abs/2609.26891' }],
+    award: 'Oral (top 2%), Meta-Agents Workshop @ NeurIPS 2026',
+    links: [
+      { label: 'arXiv', href: 'https://arxiv.org/abs/2609.26891' },
+      { label: 'Code', href: 'https://github.com/jaz-lang/jaz' },
+    ],
   },
   {
     title: 'ProofWala: A Framework for Multilingual Proof Data Synthesis and Theorem-Proving',
