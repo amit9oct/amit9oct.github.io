@@ -1,5 +1,6 @@
 // Newest first. `date` is free text, e.g. "Oct 2025" or just "2026".
 export const news: { date: string; html: string }[] = [
+  { date: '2026', html: '<b>Harness as a Language</b> selected for an oral presentation (top 2% of submissions) at the Meta-Agents Workshop at NeurIPS 2026.' },
   { date: '2026', html: 'New preprint: <a href="https://arxiv.org/abs/2609.26891">Harness as a Language</a>, a minimalist agent framework.' },
   { date: 'May 2026', html: 'Started an Applied Science internship at <b>Amazon</b> with the Automated Reasoning Group, working on agent-based proof automation for software verification.' },
   { date: '2026', html: '<b>ProofWala</b> accepted at <a href="https://doi.org/10.4230/LIPIcs.ITP.2026.24">ITP 2026</a>.' },
@@ -16,7 +17,8 @@ export const experience = [
   { when: '2025', org: 'Asari AI', role: 'ML Intern', note: 'Agents for complex systems design' },
   { when: '2017–22', org: 'Microsoft Azure', role: 'Software Engineer II', note: 'Distributed backup services, TLA+' },
   { when: '2017', org: 'Microsoft Research', role: 'Research Intern', note: 'Program synthesis (PROSE)' },
-  { when: '2016', org: 'Microsoft Azure', role: 'Summer Intern', note: 'Azure Backup team' },
+  { when: '2016', org: 'Microsoft Azure', role: 'Software Engineering Intern', note: 'Azure Backup team' },
+  { when: '2015', org: 'NISER Bhubaneswar', role: 'Summer Research Fellow', note: 'Computational number theory' },
   { when: '2014', org: 'Bhabha Atomic Research Centre', role: 'Project Trainee', note: 'Network management system' },
 ];
 
